@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SD Negeri 52 Mataram - Kegiatan</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#172033;
+}
+.header{
+  background:#1452a5;
+  color:white;
+  padding:20px;
+}
+.wrap{
+  max-width:800px;
+  margin:auto;
+  padding:16px;
+}
+.header h1{
+  margin:0;
+  font-size:25px;
+}
+.header p{
+  margin:7px 0 0;
+  font-size:17px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+.card{
+  background:white;
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 3px 12px #00000012;
+  border:0;
+}
+.activity{
+  text-align:left;
+  cursor:pointer;
+}
+.icon{font-size:38px}
+.name{
+  font-size:20px;
+  font-weight:bold;
+  margin-top:8px;
+}
+.small{
+  color:#6b7280;
+  font-size:14px;
+  margin-top:5px;
+}
+.hidden{display:none}
+.title{
+  font-size:25px;
+  font-weight:bold;
+  margin:10px 0 18px;
+}
+.back{
+  background:#e8effa;
+  color:#1452a5;
+  border:0;
+  padding:10px 15px;
+  border-radius:10px;
+  font-weight:bold;
+  margin-bottom:12px;
+}
+input{
+  width:100%;
+  padding:12px;
+  margin-top:6px;
+  border:1px solid #ccd4df;
+  border-radius:10px;
+}
+label{
+  display:block;
+  margin-top:14px;
+  font-weight:bold;
+}
+.primary{
+  width:100%;
+  margin-top:14px;
+  padding:13px;
+  border:0;
+  border-radius:10px;
+  background:#1261d6;
+  color:white;
+  font-weight:bold;
+}
+.status{
+  margin-top:12px;
+  padding:10px;
+  background:#edf4ff;
+  border-radius:10px;
+}
+.doc{
+  border-top:1px solid #e5e7eb;
+  padding:13px 0;
+}
+.docname{
+  font-weight:bold;
+  word-break:break-word;
+}
+.openbtn{
+  display:inline-block;
+  margin-top:7px;
+  padding:7px 11px;
+  background:#edf2f7;
+  color:#1452a5;
+  border-radius:8px;
+  text-decoration:none;
+}
+footer{
+  text-align:center;
+  color:#7b8794;
+  padding:30px 10px;
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="wrap">
+    <h1>SD NEGERI 52 MATARAM</h1>
+    <p>Aplikasi Kegiatan • Tahun Pelajaran 2026/2027</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="home">
+  <div class="title">📁 Kegiatan Sekolah</div>
+  <div id="activities" class="grid"></div>
+</section>
+
+<section id="detail" class="hidden">
+
+  <button class="back" onclick="kembali()">← Kembali</button>
+
+  <div class="card">
+    <div id="detailTitle" class="title"></div>
+
+    <label>Keterangan berkas</label>
+    <input id="description"
+      type="text"
+      placeholder="Contoh: Dokumentasi kegiatan Oktober">
+
+    <label>Pilih berkas</label>
+    <input id="file" type="file">
+
+    <button class="primary" onclick="uploadFile()">
+      ☁️ Upload Berkas
+    </button>
+
+    <div id="status" class="status">
+      Siap untuk upload.
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:15px">
+    <div class="title" style="font-size:20px">
+      📄 Berkas Tersimpan
+    </div>
+
+    <div id="fileList">
+      Belum ada berkas.
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+SD Negeri 52 Mataram • Aplikasi Kegiatan
+</footer>
+
+<script>
+
+const SUPABASE_URL =
+"https://wtlwtwwcykmpdqkbboxq.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_qio8myMaThkhOvQzYpV4Bg_TK2cM9OD";
+
+const BUCKET = "sd52-files";
+
+const supabaseClient =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const kegiatan = [
+  ["📅","Piket","piket"],
+  ["🧍","Apel Pagi","apel-pagi"],
+  ["🔢","Numerasi","numerasi"],
+  ["📚","Literasi","literasi"],
+  ["🕌","Imtaq","imtaq"],
+  ["📋","Kegiatan Lainnya","lainnya"]
+];
+
+let aktif = null;
+
+function tampilMenu(){
+
+  const box =
+  document.getElementById("activities");
+
+  box.innerHTML =
+  kegiatan.map(k => `
+
+  <button class="card activity"
+  onclick="bukaKegiatan('${k[2]}','${k[1]}')">
+
+    <div class="icon">${k[0]}</div>
+
+    <div class="name">
+      ${k[1]}
+    </div>
+
+    <div class="small">
+      Kelola berkas ${k[1]}
+    </div>
+
+  </button>
+
+  `).join("");
+
+}
+
+function bukaKegiatan(slug,nama){
+
+  aktif = {slug,nama};
+
+  document
+  .getElementById("home")
+  .classList.add("hidden");
+
+  document
+  .getElementById("detail")
+  .classList.remove("hidden");
+
+  document
+  .getElementById("detailTitle")
+  .innerText = "📂 " + nama;
+
+  loadFiles();
+
+}
+
+function kembali(){
+
+  document
+  .getElementById("detail")
+  .classList.add("hidden");
+
+  document
+  .getElementById("home")
+  .classList.remove("hidden");
+
+}
+
+function status(teks){
+
+  document
+  .getElementById("status")
+  .innerText = teks;
+
+}
+
+function namaAman(nama){
+
+  return nama
+  .replace(/[^\w.\-]/g,"_");
+
+}
+
+async function uploadFile(){
+
+  const input =
+  document.getElementById("file");
+
+  const file =
+  input.files[0];
+
+  const ket =
+  document
+  .getElementById("description")
+  .value.trim();
+
+  if(!file){
+
+    status("⚠️ Pilih berkas terlebih dahulu.");
+
+    return;
+
+  }
+
+  status("⏳ Sedang mengupload...");
+
+  const waktu =
+  Date.now();
+
+  const path =
+  aktif.slug + "/" +
+  waktu + "_" +
+  namaAman(file.name);
+
+  const {error} =
+  await supabaseClient
+  .storage
+  .from(BUCKET)
+  .upload(path,file,{
+    upsert:false,
+    contentType:file.type
+  });
+
+  if(error){
+
+    status(
+      "❌ Upload gagal: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+  status("✅ Berkas berhasil diupload.");
+
+  input.value="";
+
+  document
+  .getElementById("description")
+  .value="";
+
+  loadFiles();
+
+}
+
+async function loadFiles(){
+
+  const list =
+  document.getElementById("fileList");
+
+  list.innerHTML =
+  "Memuat berkas...";
+
+  const {data,error} =
+  await supabaseClient
+  .storage
+  .from(BUCKET)
+  .list(aktif.slug,{
+    limit:100,
+    sortBy:{
+      column:"created_at",
+      order:"desc"
+    }
+  });
+
+  if(error){
+
+    list.innerHTML =
+    "❌ Gagal memuat: " +
+    error.message;
+
+    return;
+
+  }
+
+  if(!data || data.length===0){
+
+    list.innerHTML =
+    '<div class="small">Belum ada berkas.</div>';
+
+    return;
+
+  }
+
+  list.innerHTML="";
+
+  data.forEach(file => {
+
+    const path =
+    aktif.slug + "/" +
+    file.name;
+
+    const {data:urlData} =
+    supabaseClient
+    .storage
+    .from(BUCKET)
+    .getPublicUrl(path);
+
+    const div =
+    document.createElement("div");
+
+    div.className="doc";
+
+    div.innerHTML = `
+
+      <div class="docname">
+        📄 ${file.name}
+      </div>
+
+      <div class="small">
+        ${file.created_at
+        ? new Date(file.created_at)
+        .toLocaleString("id-ID")
+        : ""}
+      </div>
+
+      <a class="openbtn"
+      target="_blank"
+      href="${urlData.publicUrl}">
+        👁️ Buka File
+      </a>
+
+    `;
+
+    list.appendChild(div);
+
+  });
+
+}
+
+tampilMenu();
+
+</script>
+
+</body>
+</html>
