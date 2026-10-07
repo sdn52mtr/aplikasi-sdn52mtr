@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SDN 52 Mataram - Kegiatan</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}
+.header{background:#1452a5;color:#fff;padding:18px 14px;position:sticky;top:0;z-index:5;box-shadow:0 2px 8px #0002}
+.wrap{max-width:900px;margin:auto;padding:16px}
+.header h1{margin:0;font-size:23px}.header p{margin:5px 0 0;opacity:.9}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+.card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 10px #0001;border:1px solid #e6ebf2}
+.activity{cursor:pointer;text-align:left;border:0;width:100%;font:inherit}.activity:hover{transform:translateY(-1px)}
+.icon{font-size:30px}.name{font-weight:800;font-size:18px;margin-top:7px}
+.hidden{display:none!important}.title{font-size:21px;font-weight:800;margin:4px 0 14px}
+.back{background:#eef4ff;color:#1452a5;border:0;border-radius:10px;padding:10px 14px;font-weight:700;margin-bottom:12px}
+label{display:block;font-weight:700;margin:10px 0 6px}input[type=text],input[type=file]{width:100%;padding:11px;border:1px solid #ccd5e2;border-radius:10px;background:#fff}
+button{font:inherit;cursor:pointer}.primary{background:#1261d6;color:#fff;border:0;border-radius:10px;padding:11px 16px;font-weight:700;margin-top:10px;width:100%}
+.status{margin-top:10px;font-size:13px;padding:9px;border-radius:9px;background:#eef4ff}
+.doc{border-top:1px solid #e5eaf0;padding:12px 0;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.doc:first-child{border-top:0}.docname{font-weight:700;word-break:break-word}.small{font-size:12px;color:#667085;margin-top:3px}
+.actions{display:flex;gap:6px;flex-wrap:wrap}.smallbtn{border:0;border-radius:8px;padding:8px 10px;background:#edf2f7;color:#17304f;text-decoration:none}
+footer{text-align:center;color:#7b8798;padding:25px 10px;font-size:13px}
+@media(max-width:600px){.grid{grid-template-columns:1fr 1fr}.wrap{padding:12px}.card{padding:13px}}
+</style>
+</head>
+<body>
+<header class="header">
+<div class="wrap" style="padding:0">
+<h1>SD NEGERI 52 MATARAM</h1>
+<p>Aplikasi Kegiatan • Tahun Pelajaran 2026/2027</p>
+</div>
+</header>
+
+<main class="wrap">
+<section id="home">
+<div class="title">📁 Kegiatan Sekolah</div>
+<div id="activities" class="grid"></div>
+</section>
+
+<section id="detail" class="hidden">
+<button class="back" onclick="showHome()">← Kembali</button>
+<div class="card">
+<div id="detailTitle" class="title"></div>
+<p class="small">Upload berkas kegiatan. Berkas disimpan di Supabase.</p>
+<label for="description">Keterangan berkas</label>
+<input id="description" type="text" placeholder="Contoh: Dokumentasi kegiatan bulan Oktober">
+<label for="file">Pilih berkas</label>
+<input id="file" type="file">
+<button class="primary" onclick="uploadFile()">☁️ Upload ke Supabase</button>
+<div id="status" class="status">Siap.</div>
+</div>
+<div class="card" style="margin-top:12px">
+<div class="title" style="font-size:18px">📄 Berkas tersimpan</div>
+<div id="fileList">Memuat...</div>
+</div>
+</section>
+</main>
+<footer>SD Negeri 52 Mataram • Aplikasi Kegiatan</footer>
+
+<script>
+const SUPABASE_URL = "https://wtlwtwwcykmpdqkbboxq.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_qio8myMaThkhOvQzYpV4Bg_TK2cM9OD";
+const BUCKET = "sd52-files";
+
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+const activities = [
+ ["📅","Piket","piket"],["🧍","Apel Pagi","apel-pagi"],
+ ["🔢","Numerasi","numerasi"],["📚","Literasi","literasi"],
+ ["🕌","Imtaq","imtaq"],["📋","Kegiatan Lainnya","lainnya"]
+];
+let currentActivity = null;
+
+function renderActivities(){
+ const box=document.getElementById("activities");
+ box.innerHTML=activities.map(a=>`
+ <button class="card activity" onclick="openActivity('${a[2]}','${a[1]}')">
+   <div class="icon">${a[0]}</div><div class="name">${a[1]}</div>
+   <div class="small">Kelola berkas ${a[1]}</div>
+ </button>`).join("");
+}
+function openActivity(slug,name){
+ currentActivity={slug,name};
+ document.getElementById("home").classList.add("hidden");
+ document.getElementById("detail").classList.remove("hidden");
+ document.getElementById("detailTitle").textContent="📂 "+name;
+ document.getElementById("description").value="";
+ document.getElementById("file").value="";
+ setStatus("Memuat berkas...");
+ loadFiles();
+}
+function showHome(){
+ document.getElementById("detail").classList.add("hidden");
+ document.getElementById("home").classList.remove("hidden");
+}
+function setStatus(t){document.getElementById("status").textContent=t}
+
+function safeName(name){
+ return name.replace(/[^\w.\-()\s]/g,"_").replace(/\s+/g,"_");
+}
+async function uploadFile(){
+ const input=document.getElementById("file");
+ const desc=document.getElementById("description").value.trim();
+ const file=input.files[0];
+ if(!file){setStatus("Pilih berkas terlebih dahulu.");return;}
+ setStatus("Mengupload...");
+ const stamp=new Date().toISOString().replace(/[:.]/g,"-");
+ const path=`${currentActivity.slug}/${stamp}_${safeName(file.name)}`;
+ const {error}=await db.storage.from(BUCKET).upload(path,file,{
+   upsert:false,
+   contentType:file.type || "application/octet-stream",
+   metadata:{description:desc || "Berkas kegiatan",uploaded_at:new Date().toISOString()}
+ });
+ if(error){setStatus("Gagal upload: "+error.message);return;}
+ setStatus("✅ Berhasil diupload.");
+ input.value=""; document.getElementById("description").value="";
+ loadFiles();
+}
+
+async function loadFiles(){
+ const list=document.getElementById("fileList");
+ list.innerHTML="Memuat...";
+ const {data,error}=await db.storage.from(BUCKET).list(currentActivity.slug,{
+   limit:100,offset:0,sortBy:{column:"created_at",order:"desc"}
+ });
+ if(error){list.innerHTML=`<div class="small">Gagal memuat: ${escapeHtml(error.message)}</div>`;return;}
+ if(!data || !data.length){list.innerHTML='<div class="small">Belum ada berkas.</div>';return;}
+ list.innerHTML="";
+ for(const f of data){
+   if(!f.name) continue;
+   const path=`${currentActivity.slug}/${f.name}`;
+   const {data:urlData}=db.storage.from(BUCKET).getPublicUrl(path);
+   const meta=f.metadata||{};
+   const size=meta.size ? formatBytes(meta.size) : "";
+   const desc=meta.description || "Tanpa keterangan";
+   const row=document.createElement("div"); row.className="doc";
+   row.innerHTML=`<div><div class="docname">${escapeHtml(f.name)}</div><div class="small">${escapeHtml(desc)} ${size?"• "+size:""}</div></div>
+   <div class="actions"><a class="smallbtn" target="_blank" rel="noopener" href="${urlData.publicUrl}">Buka</a></div>`;
+   list.appendChild(row);
+ }
+}
+function formatBytes(n){if(!n)return"";const u=["B","KB","MB","GB"];let i=0;while(n>=1024&&i<3){n/=1024;i++}return n.toFixed(i?1:0)+" "+u[i]}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+renderActivities();
+</script>
+</body>
+</html>
