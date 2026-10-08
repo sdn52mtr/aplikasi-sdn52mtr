@@ -1160,5 +1160,18 @@ function sd52OpenPage(id){
 // Legacy activity opener removed: the online workspace opener is defined above.
 </script>
 
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(() => console.log('Service Worker aktif'))
+      .catch(err => console.error('Service Worker gagal:', err));
+  });
+}
+</script>
+
 </body>
 </html>
+
+
