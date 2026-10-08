@@ -1,0 +1,1164 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portal SD Negeri 52 Mataram</title>
+<style>
+:root{--blue:#1357a6;--blue2:#0b3b78;--light:#f4f7fb;--white:#fff;--text:#172033;--muted:#667085;--line:#e5eaf0;--green:#15803d;--red:#c62828;--yellow:#a16207}
+*{box-sizing:border-box}body{margin:0;background:var(--light);font-family:Arial,system-ui,sans-serif;color:var(--text)}
+.top{height:72px;background:linear-gradient(120deg,var(--blue2),#2875dd);color:#fff;display:flex;align-items:center;padding:0 22px;position:sticky;top:0;z-index:30}.topin{width:100%;max-width:1250px;margin:auto;display:flex;align-items:center;gap:12px}.crest{width:45px;height:45px;background:#fff;color:var(--blue2);border-radius:12px;display:grid;place-items:center;font-size:25px}.school{font-size:20px;font-weight:800}.sub{font-size:12px;opacity:.9;margin-top:3px}
+.shell{max-width:1250px;margin:auto;display:flex;min-height:calc(100vh - 72px)}.side{width:235px;background:#fff;border-right:1px solid var(--line);padding:14px 9px;flex-shrink:0}.group{font-size:10px;color:#98a2b3;font-weight:800;padding:12px 10px 5px;text-transform:uppercase}.nav{display:flex;width:100%;border:0;background:transparent;border-radius:10px;padding:10px 11px;text-align:left;font-weight:700;color:#344054;cursor:pointer;margin:2px 0}.nav:hover,.nav.active{background:#eaf2ff;color:var(--blue)}
+.content{flex:1;padding:20px;min-width:0}.page{display:none}.page.active{display:block}.hero,.panel{background:#fff;border:1px solid var(--line);border-radius:17px;padding:18px;box-shadow:0 5px 20px #0b3b7810;margin-bottom:14px}.hero h1,.hero h2{margin:0 0 7px}.muted{color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px}.stat b{font-size:27px;color:var(--blue)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px}.card h3{margin:7px 0}.icon{font-size:29px}.click{cursor:pointer}.click:hover{box-shadow:0 10px 24px #123b7218;transform:translateY(-1px)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+button,.btn{font:inherit}.btn{border:0;border-radius:9px;padding:9px 12px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:5px}.primary{background:var(--blue);color:#fff}.soft{background:#eaf2ff;color:var(--blue2)}.danger{background:#fee2e2;color:#991b1b}.green{background:#dcfce7;color:#166534}.yellow{background:#fff4d6;color:#854d0e}
+input,select,textarea{width:100%;padding:10px;border:1px solid #cfd7e2;border-radius:9px;background:#fff;margin:5px 0 10px}label{font-size:13px;font-weight:700}
+.tabs{display:flex;gap:7px;overflow:auto;padding-bottom:4px}.tab{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 14px;white-space:nowrap;font-weight:700;cursor:pointer}.tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.bookcover,.gamecover{height:125px;border-radius:12px;display:grid;place-items:center;font-size:45px;background:linear-gradient(135deg,#dceaff,#f1f6ff)}.tag{display:inline-block;padding:4px 8px;border-radius:99px;background:#eef4ff;color:#1753a2;font-size:11px;font-weight:700;margin-top:6px}
+.item{border:1px solid var(--line);border-radius:12px;padding:12px;margin:8px 0}.small{font-size:12px;color:var(--muted)}.notice{background:#eef6ff;color:#174e96;padding:10px;border-radius:9px;margin:8px 0}.notice.err{background:#fff0f0;color:#a61b16}
+table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px solid var(--line);text-align:left;font-size:13px}th{background:#f8fafc}.search{max-width:400px}.mobilebar{display:none}
+footer{text-align:center;color:var(--muted);padding:25px}
+@media(max-width:900px){.side{display:none}.mobilebar{display:block;position:fixed;bottom:10px;left:9px;right:9px;background:#fff;border:1px solid var(--line);border-radius:15px;padding:6px;z-index:40;box-shadow:0 8px 28px #0002}.mobilebar .scroll{display:flex;gap:5px;overflow:auto}.mobilebar .nav{min-width:max-content;width:auto;margin:0}.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.content{padding:11px}.grid{grid-template-columns:1fr}.school{font-size:16px}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style id="back-button-style">
+.back-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin:0 0 14px 0;
+  padding:9px 14px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  background:#fff;
+  color:#1f2937;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 1px 3px rgba(0,0,0,.08);
+}
+.back-btn:hover{background:#f3f4f6}
+.back-btn:active{transform:translateY(1px)}
+</style>
+
+<style id="sd52-menu-redesign">
+:root{
+  --sd52-primary:#1769aa;
+  --sd52-primary-2:#0f4c81;
+  --sd52-bg:#f4f7fb;
+  --sd52-card:#ffffff;
+  --sd52-text:#172033;
+  --sd52-muted:#687386;
+  --sd52-border:#e5eaf1;
+  --sd52-shadow:0 8px 24px rgba(25,55,90,.08);
+}
+body{
+  background:var(--sd52-bg)!important;
+  color:var(--sd52-text);
+}
+header,.topbar,.navbar,.nav-wrap{
+  box-shadow:0 3px 18px rgba(20,55,90,.08)!important;
+}
+nav,.nav,.menu,.sidebar{
+  background:#fff!important;
+}
+.nav-item,.menu-item,.sidebar a{
+  transition:all .18s ease!important;
+}
+.nav-item:hover,.menu-item:hover,.sidebar a:hover{
+  transform:none!important;
+}
+.page{
+  max-width:1180px;
+  margin:0 auto;
+}
+.hero{
+  border-radius:18px!important;
+  border:1px solid var(--sd52-border)!important;
+  box-shadow:var(--sd52-shadow)!important;
+}
+.panel,.card,.item{
+  border:1px solid var(--sd52-border)!important;
+  box-shadow:0 5px 18px rgba(25,55,90,.055)!important;
+  border-radius:16px!important;
+}
+.btn{
+  border-radius:10px!important;
+  font-weight:700!important;
+}
+input,select,textarea{
+  border-radius:10px!important;
+  border-color:#d9e0ea!important;
+}
+#dashboard .hero{
+  background:linear-gradient(135deg,#0f4c81 0%,#1769aa 55%,#2d87c8 100%)!important;
+  color:#fff!important;
+  border:0!important;
+  box-shadow:0 12px 30px rgba(15,76,129,.22)!important;
+}
+#dashboard .hero h1,#dashboard .hero h2,#dashboard .hero h3,
+#dashboard .hero p,#dashboard .hero .muted{
+  color:#fff!important;
+}
+#dashboard .quick-grid,#dashboard .menu-grid,#dashboard .stats-grid{
+  gap:14px!important;
+}
+#dashboard .quick-grid > *,#dashboard .menu-grid > *,
+#dashboard .stats-grid > *{
+  border-radius:16px!important;
+  border:1px solid var(--sd52-border)!important;
+  box-shadow:0 5px 18px rgba(25,55,90,.06)!important;
+}
+#dashboard .quick-grid > *:hover,#dashboard .menu-grid > *:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(25,55,90,.11)!important;
+}
+.sd52-section-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:20px 0 12px;
+  font-size:15px;
+  font-weight:800;
+  color:#344054;
+}
+.sd52-section-title:before{
+  content:"";
+  width:4px;height:20px;
+  border-radius:5px;
+  background:var(--sd52-primary);
+}
+@media(max-width:700px){
+  .page{padding-left:10px!important;padding-right:10px!important}
+  .hero{border-radius:14px!important}
+  .panel,.card,.item{border-radius:13px!important}
+  .btn{min-height:40px}
+}
+</style>
+
+<style id="sd52-main-menu-fix">
+.sd52-menu-heading{margin:18px 0 12px;font-size:17px;font-weight:800;color:#243247}
+.sd52-main-menu{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px!important}
+.sd52-main-menu .card{min-height:112px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:16px!important;cursor:pointer}
+.sd52-main-menu .card .icon{font-size:28px;margin-bottom:8px}
+.sd52-main-menu .card h3{margin:0 0 6px;font-size:15px}
+@media(max-width:900px){.sd52-main-menu{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){.sd52-main-menu{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px!important}.sd52-main-menu .card{min-height:100px;padding:13px!important}}
+</style>
+
+
+<style id="sd52-final-menu-style">
+.sd52-activity-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}
+.sd52-activity-grid .card{padding:15px;border:1px solid #e5eaf1;border-radius:14px;background:#fff;cursor:pointer;text-align:left;font-size:15px}
+.sd52-activity-grid .card:hover{transform:translateY(-2px)}
+@media(max-width:800px){.sd52-activity-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:560px){.sd52-activity-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+
+
+<style id="sd52-menu-docs-style">
+.sd52-doc-panel{margin:16px 0;padding:16px;border:1px solid #e3e8ef;border-radius:16px;background:#fff;box-shadow:0 5px 18px rgba(25,55,90,.06)}
+.sd52-doc-panel h3{margin:0 0 5px}
+.sd52-doc-panel .sd52-doc-form{display:grid;grid-template-columns:1fr 1.5fr auto;gap:10px;align-items:end;margin-top:12px}
+.sd52-doc-panel input[type=text],.sd52-doc-panel input[type=file]{width:100%;box-sizing:border-box}
+.sd52-doc-list{margin-top:14px;display:grid;gap:10px}
+.sd52-doc-card{padding:12px;border:1px solid #e7ebf0;border-radius:12px;background:#fafcff}
+.sd52-doc-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+@media(max-width:700px){.sd52-doc-panel .sd52-doc-form{grid-template-columns:1fr}}
+</style>
+
+
+<style id="sd52-kegiatan-sempurna">
+.sd52-kegiatan-panel{margin-top:16px!important;padding:18px!important}
+.sd52-kegiatan-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.sd52-kegiatan-title{font-size:18px;font-weight:800;color:#172033}
+.sd52-kegiatan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.sd52-kegiatan-btn{
+  border:1px solid #e1e7ef!important;background:#fff!important;border-radius:14px!important;
+  padding:15px 13px!important;display:flex!important;align-items:center!important;gap:11px!important;
+  text-align:left!important;cursor:pointer!important;color:#172033!important;
+  box-shadow:0 3px 10px rgba(25,55,90,.05)!important;
+  transition:transform .15s,box-shadow .15s,background .15s!important;
+}
+.sd52-kegiatan-btn span{font-size:26px;line-height:1}
+.sd52-kegiatan-btn b{font-size:14px}
+.sd52-kegiatan-btn:hover{transform:translateY(-2px)!important;box-shadow:0 8px 18px rgba(25,55,90,.11)!important;background:#f8fbff!important}
+@media(max-width:700px){.sd52-kegiatan-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.sd52-kegiatan-btn{padding:13px 10px!important}}
+</style>
+
+</head>
+<body>
+<header class="top"><div class="topin"><div class="crest">🏫</div><div><div class="school">SD NEGERI 52 MATARAM</div><div class="sub">Portal Sekolah • Tahun Pelajaran 2026/2027</div></div></div></header>
+<div class="shell">
+<aside class="side" id="side"></aside>
+<main class="content">
+
+<section class="page active" id="dashboard">
+<div class="sd52-section-title">Menu Utama</div>
+<button class="back-btn" type="button" onclick="goBackPortal()">↩️ Kembali</button>
+<div class="hero"><h1>🏠 Dashboard</h1><p class="muted">Pusat administrasi, pembelajaran, buku digital, game, kegiatan dan absensi sekolah.</p></div>
+<div class="stats">
+<div class="stat"><b id="dashFiles">0</b><div class="muted">📁 Berkas</div></div>
+<div class="stat"><b>6</b><div class="muted">🏫 Kelas</div></div>
+<div class="stat"><b>9</b><div class="muted">👨‍🎓 Siswa Kelas 3</div></div>
+<div class="stat"><b id="dashBooks">42</b><div class="muted">📚 Buku awal</div></div>
+</div>
+<div class="sd52-menu-heading">📌 Menu Utama</div>
+<div class="grid sd52-main-menu" id="quick"></div>
+<div id="sd52-kegiatan-menu" class="panel sd52-kegiatan-panel">
+  <div class="sd52-kegiatan-head">
+    <div>
+      <div class="sd52-kegiatan-title">📋 Kegiatan Sekolah</div>
+      <div class="small">Pilih kegiatan untuk membuka halaman dan mengelola dokumentasinya.</div>
+    </div>
+  </div>
+  <div class="sd52-kegiatan-grid">
+    <button type="button" class="sd52-kegiatan-btn" onclick="sd52OpenActivity('Piket Kelas')"><span>🧹</span><b>Piket Kelas</b></button>
+    <button type="button" class="sd52-kegiatan-btn" onclick="sd52OpenActivity('Apel Pagi')"><span>🇮🇩</span><b>Apel Pagi</b></button>
+    <button type="button" class="sd52-kegiatan-btn" onclick="sd52OpenActivity('Numerasi')"><span>🔢</span><b>Numerasi</b></button>
+    <button type="button" class="sd52-kegiatan-btn" onclick="sd52OpenActivity('Literasi')"><span>📖</span><b>Literasi</b></button>
+    <button type="button" class="sd52-kegiatan-btn" onclick="sd52OpenActivity('Imtaq')"><span>🕌</span><b>Imtaq</b></button>
+    <button type="button" class="sd52-kegiatan-btn" onclick="sd52OpenPage('attendance')"><span>📝</span><b>Absen</b></button>
+    <button type="button" class="sd52-kegiatan-btn" onclick="sd52OpenPage('agenda')"><span>🤝</span><b>Rapat</b></button>
+    <button type="button" class="sd52-kegiatan-btn" onclick="sd52OpenPage('books')"><span>📚</span><b>Buku</b></button>
+    <button type="button" class="sd52-kegiatan-btn" onclick="sd52OpenPage('games')"><span>🎮</span><b>Game</b></button>
+  </div>
+</div>
+
+
+
+</section>
+
+<section class="page" id="files">
+<div class="sd52-doc-panel" id="sd52-docs-files">
+  <h3>📎 Dokumen Files</h3>
+  <div class="small">Upload foto, video, PDF, Word, Excel, PowerPoint, atau dokumen lainnya khusus untuk menu ini.</div>
+  <div class="sd52-doc-form">
+    <div>
+      <label>Keterangan File</label>
+      <input type="text" id="sd52-desc-files" placeholder="Contoh: Dokumentasi / laporan / surat">
+    </div>
+    <div>
+      <label>Pilih File</label>
+      <input type="file" id="sd52-file-files" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip">
+    </div>
+    <button class="btn primary" type="button" onclick="sd52UploadMenuFile('files')">📤 Upload</button>
+  </div>
+  <div id="sd52-msg-files" class="notice" style="margin-top:10px"></div>
+  <div class="row" style="margin-top:12px">
+    <h4 style="margin:0">📂 File Menu Ini</h4>
+    <button class="btn soft" type="button" onclick="sd52LoadMenuFiles('files')">🔄 Refresh</button>
+  </div>
+  <div id="sd52-list-files" class="sd52-doc-list"><p class="muted">Memuat file...</p></div>
+</div>
+
+<button class="back-btn" type="button" onclick="goBackPortal()">↩️ Kembali</button>
+<div class="hero"><h2>📁 Pusat Berkas</h2><p class="muted">Semua dokumen sekolah dikumpulkan di satu tempat.</p></div>
+<div class="panel">
+<div class="row"><h3>☁️ Upload Berkas</h3><span class="tag">Supabase Storage</span></div>
+<label>Kategori</label><select id="fileCategory"><option>Administrasi</option><option>Kegiatan</option><option>Absensi</option><option>Modul Ajar</option><option>RPM</option><option>LKPD</option><option>Soal</option><option>Lainnya</option></select>
+<label>Keterangan</label><input id="fileDesc" placeholder="Keterangan berkas">
+<label>File</label><input type="file" id="fileInput">
+<div class="actions"><button class="btn primary" onclick="uploadFile()">☁️ Upload</button><button class="btn soft" onclick="loadFiles()">🔄 Refresh</button></div>
+<div class="notice" id="fileMsg">Isi kredensial Supabase pada bagian konfigurasi jika ingin penyimpanan online.</div>
+</div>
+<div class="panel"><div class="row"><h3>Daftar Berkas</h3><input class="search" id="fileSearch" placeholder="Cari..." oninput="filterFiles()"></div><div id="fileList"></div></div>
+</section>
+
+<section class="page" id="activities">
+<div class="sd52-doc-panel" id="sd52-docs-activities">
+  <h3>📎 Dokumen Activities</h3>
+  <div class="small">Upload foto, video, PDF, Word, Excel, PowerPoint, atau dokumen lainnya khusus untuk menu ini.</div>
+  <div class="sd52-doc-form">
+    <div>
+      <label>Keterangan File</label>
+      <input type="text" id="sd52-desc-activities" placeholder="Contoh: Dokumentasi / laporan / surat">
+    </div>
+    <div>
+      <label>Pilih File</label>
+      <input type="file" id="sd52-file-activities" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip">
+    </div>
+    <button class="btn primary" type="button" onclick="sd52UploadMenuFile('activities')">📤 Upload</button>
+  </div>
+  <div id="sd52-msg-activities" class="notice" style="margin-top:10px"></div>
+  <div class="row" style="margin-top:12px">
+    <h4 style="margin:0">📂 File Menu Ini</h4>
+    <button class="btn soft" type="button" onclick="sd52LoadMenuFiles('activities')">🔄 Refresh</button>
+  </div>
+  <div id="sd52-list-activities" class="sd52-doc-list"><p class="muted">Memuat file...</p></div>
+</div>
+
+<button class="back-btn" type="button" onclick="goBackPortal()">↩️ Kembali</button><div class="hero"><h2>📋 Kegiatan Sekolah</h2><p class="muted">Semua kegiatan tersimpan online di Supabase. Pilih kegiatan untuk membuka ruang dokumentasinya.</p></div><div class="grid" id="activityGrid"></div><div id="activityWorkspace"></div></section>
+
+<section class="page" id="attendance">
+<div class="sd52-doc-panel" id="sd52-docs-attendance">
+  <h3>📎 Dokumen Attendance</h3>
+  <div class="small">Upload foto, video, PDF, Word, Excel, PowerPoint, atau dokumen lainnya khusus untuk menu ini.</div>
+  <div class="sd52-doc-form">
+    <div>
+      <label>Keterangan File</label>
+      <input type="text" id="sd52-desc-attendance" placeholder="Contoh: Dokumentasi / laporan / surat">
+    </div>
+    <div>
+      <label>Pilih File</label>
+      <input type="file" id="sd52-file-attendance" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip">
+    </div>
+    <button class="btn primary" type="button" onclick="sd52UploadMenuFile('attendance')">📤 Upload</button>
+  </div>
+  <div id="sd52-msg-attendance" class="notice" style="margin-top:10px"></div>
+  <div class="row" style="margin-top:12px">
+    <h4 style="margin:0">📂 File Menu Ini</h4>
+    <button class="btn soft" type="button" onclick="sd52LoadMenuFiles('attendance')">🔄 Refresh</button>
+  </div>
+  <div id="sd52-list-attendance" class="sd52-doc-list"><p class="muted">Memuat file...</p></div>
+</div>
+
+<button class="back-btn" type="button" onclick="goBackPortal()">↩️ Kembali</button>
+<div class="hero"><h2>📝 Absensi Kelas 1–6</h2><p class="muted">Pilih kelas dan tanggal. Rekap sakit, izin, dan alpa dihitung otomatis.</p>
+<div class="row"><div style="min-width:150px;flex:1"><label>Kelas</label><select id="attClass" onchange="renderAttendance()"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option></select></div><div style="min-width:180px;flex:1"><label>Tanggal</label><input type="date" id="attDate" onchange="renderAttendance()"></div><button class="btn primary" onclick="saveAttendance()">💾 Simpan</button></div></div>
+<div class="stats"><div class="stat"><b id="aHadir">0</b><div class="muted">🟢 Hadir</div></div><div class="stat"><b id="aSakit">0</b><div class="muted">🔴 Sakit</div></div><div class="stat"><b id="aIzin">0</b><div class="muted">🟡 Izin</div></div><div class="stat"><b id="aAlpa">0</b><div class="muted">⚫ Alpa</div></div></div>
+<div class="panel"><div class="row"><h3>Daftar Siswa</h3><span class="tag" id="attLabel">Kelas 3</span></div><div id="attInfo" class="notice"></div><table><thead><tr><th>No</th><th>Nama</th><th>Status</th></tr></thead><tbody id="attBody"></tbody></table></div>
+<div class="panel"><h3>👥 Kelola Nama Siswa</h3><textarea id="roster" rows="6" placeholder="Satu nama setiap baris"></textarea><button class="btn primary" onclick="saveRoster()">💾 Simpan Nama</button></div>
+<div class="panel"><h3>📤 Berkas Absensi</h3><input id="attFile" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.jpg,.png"><input id="attDesc" placeholder="Keterangan berkas"><button class="btn primary" onclick="uploadAttendance()">☁️ Upload Berkas</button><div id="attMsg" class="notice"></div><div id="attFiles"></div></div>
+</section>
+
+<section class="page" id="students">
+<div class="sd52-doc-panel" id="sd52-docs-students">
+  <h3>📎 Dokumen Students</h3>
+  <div class="small">Upload foto, video, PDF, Word, Excel, PowerPoint, atau dokumen lainnya khusus untuk menu ini.</div>
+  <div class="sd52-doc-form">
+    <div>
+      <label>Keterangan File</label>
+      <input type="text" id="sd52-desc-students" placeholder="Contoh: Dokumentasi / laporan / surat">
+    </div>
+    <div>
+      <label>Pilih File</label>
+      <input type="file" id="sd52-file-students" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip">
+    </div>
+    <button class="btn primary" type="button" onclick="sd52UploadMenuFile('students')">📤 Upload</button>
+  </div>
+  <div id="sd52-msg-students" class="notice" style="margin-top:10px"></div>
+  <div class="row" style="margin-top:12px">
+    <h4 style="margin:0">📂 File Menu Ini</h4>
+    <button class="btn soft" type="button" onclick="sd52LoadMenuFiles('students')">🔄 Refresh</button>
+  </div>
+  <div id="sd52-list-students" class="sd52-doc-list"><p class="muted">Memuat file...</p></div>
+</div>
+
+<button class="back-btn" type="button" onclick="goBackPortal()">↩️ Kembali</button><div class="hero"><h2>👨‍🎓 Data Siswa</h2><input class="search" id="studentSearch" placeholder="Cari nama..." oninput="renderStudents()"></div><div class="panel"><table><thead><tr><th>No</th><th>Nama</th><th>Kelas</th><th>Status</th></tr></thead><tbody id="studentBody"></tbody></table></div></section>
+
+<section class="page" id="books">
+<div class="sd52-doc-panel" id="sd52-docs-books">
+  <h3>📎 Dokumen Books</h3>
+  <div class="small">Upload foto, video, PDF, Word, Excel, PowerPoint, atau dokumen lainnya khusus untuk menu ini.</div>
+  <div class="sd52-doc-form">
+    <div>
+      <label>Keterangan File</label>
+      <input type="text" id="sd52-desc-books" placeholder="Contoh: Dokumentasi / laporan / surat">
+    </div>
+    <div>
+      <label>Pilih File</label>
+      <input type="file" id="sd52-file-books" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip">
+    </div>
+    <button class="btn primary" type="button" onclick="sd52UploadMenuFile('books')">📤 Upload</button>
+  </div>
+  <div id="sd52-msg-books" class="notice" style="margin-top:10px"></div>
+  <div class="row" style="margin-top:12px">
+    <h4 style="margin:0">📂 File Menu Ini</h4>
+    <button class="btn soft" type="button" onclick="sd52LoadMenuFiles('books')">🔄 Refresh</button>
+  </div>
+  <div id="sd52-list-books" class="sd52-doc-list"><p class="muted">Memuat file...</p></div>
+</div>
+
+<button class="back-btn" type="button" onclick="goBackPortal()">↩️ Kembali</button>
+<div class="hero"><div class="row"><div><h2>📚 Buku Digital Kelas 1–6</h2><p class="muted">Pilih kelas untuk melihat buku. Setiap kelas memiliki ruang upload sendiri.</p></div><button class="btn primary" onclick="toggleBookUpload()">＋ Upload Buku</button></div></div>
+<div class="panel"><div class="tabs" id="bookTabs"></div></div>
+<div class="stats"><div class="stat"><b id="bookCount">0</b><div class="muted">📚 Buku Kelas</div></div><div class="stat"><b>6</b><div class="muted">🏫 Tingkat</div></div><div class="stat"><b>7</b><div class="muted">📘 Mapel</div></div><div class="stat"><b id="bookStatus">LOCAL</b><div class="muted">☁️ Penyimpanan</div></div></div>
+<div class="grid" id="bookGrid"></div>
+<div class="panel" id="bookUpload" style="display:none"><h3>📤 Upload Buku Digital</h3><label>Kelas</label><select id="uploadClass"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select><label>Judul</label><input id="bookTitle"><label>Mata Pelajaran</label><select id="bookSubject"><option>Matematika</option><option>Bahasa Indonesia</option><option>Bahasa Inggris</option><option>IPAS</option><option>Pendidikan Pancasila</option><option>PJOK</option><option>Agama Islam</option></select><label>Keterangan</label><input id="bookDesc"><input type="file" id="bookFile" accept=".pdf,.doc,.docx,.ppt,.pptx"><div class="actions"><button class="btn primary" onclick="addBook()">📤 Simpan Buku</button><button class="btn danger" onclick="toggleBookUpload()">Tutup</button></div><div id="bookMsg" class="notice"></div></div>
+</section>
+
+<section class="page" id="games">
+<div class="sd52-doc-panel" id="sd52-docs-games">
+  <h3>📎 Dokumen Games</h3>
+  <div class="small">Upload foto, video, PDF, Word, Excel, PowerPoint, atau dokumen lainnya khusus untuk menu ini.</div>
+  <div class="sd52-doc-form">
+    <div>
+      <label>Keterangan File</label>
+      <input type="text" id="sd52-desc-games" placeholder="Contoh: Dokumentasi / laporan / surat">
+    </div>
+    <div>
+      <label>Pilih File</label>
+      <input type="file" id="sd52-file-games" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip">
+    </div>
+    <button class="btn primary" type="button" onclick="sd52UploadMenuFile('games')">📤 Upload</button>
+  </div>
+  <div id="sd52-msg-games" class="notice" style="margin-top:10px"></div>
+  <div class="row" style="margin-top:12px">
+    <h4 style="margin:0">📂 File Menu Ini</h4>
+    <button class="btn soft" type="button" onclick="sd52LoadMenuFiles('games')">🔄 Refresh</button>
+  </div>
+  <div id="sd52-list-games" class="sd52-doc-list"><p class="muted">Memuat file...</p></div>
+</div>
+
+<button class="back-btn" type="button" onclick="goBackPortal()">↩️ Kembali</button>
+<div class="hero">
+  <div class="row">
+    <div><h2>🎮 Game Edukasi</h2><p class="muted">Game dipisahkan berdasarkan kelas dan guru. Setiap guru mempunyai ruang game sendiri.</p></div>
+    <button class="btn primary" onclick="toggleGameUpload()">＋ Upload Game</button>
+  </div>
+</div>
+<div class="panel">
+  <div class="row">
+    <div style="flex:1;min-width:160px"><label>Kelas</label><select id="gameClass" onchange="renderGames()"><option value="1">Kelas 1</option><option value="2">Kelas 2</option><option value="3" selected>Kelas 3</option><option value="4">Kelas 4</option><option value="5">Kelas 5</option><option value="6">Kelas 6</option></select></div>
+    <div style="flex:2;min-width:220px"><label>Guru</label><select id="gameTeacher" onchange="renderGames()"><option value="Semua Guru">Semua Guru</option><option value="Syahrullah, S.Pd">Syahrullah, S.Pd</option><option value="Guru Kelas 1">Guru Kelas 1</option><option value="Guru Kelas 2">Guru Kelas 2</option><option value="Guru Kelas 4">Guru Kelas 4</option><option value="Guru Kelas 5">Guru Kelas 5</option><option value="Guru Kelas 6">Guru Kelas 6</option></select></div>
+  </div>
+</div>
+<div class="stats"><div class="stat"><b id="gameCount">0</b><div class="muted">🎮 Game Kelas</div></div><div class="stat"><b id="gameTeacherCount">0</b><div class="muted">👨‍🏫 Game Guru</div></div><div class="stat"><b>6</b><div class="muted">🏫 Kelas</div></div><div class="stat"><b id="gameOnline">LOCAL</b><div class="muted">☁️ Status</div></div></div>
+<div class="grid" id="gameGrid"></div>
+
+<div class="panel" id="gameUpload" style="display:none;margin-top:14px">
+  <h3>📤 Upload Game Baru</h3>
+  <p class="muted">Isi pemilik game terlebih dahulu. File HTML/HTM/ZIP akan disimpan ke folder kelas dan guru di Supabase.</p>
+  <label>Kelas</label><select id="uploadGameClass"><option value="1">Kelas 1</option><option value="2">Kelas 2</option><option value="3">Kelas 3</option><option value="4">Kelas 4</option><option value="5">Kelas 5</option><option value="6">Kelas 6</option></select>
+  <label>Nama Guru</label><input id="uploadGameTeacher" placeholder="Contoh: Syahrullah, S.Pd">
+  <label>Mata Pelajaran</label><select id="uploadGameSubject"><option>Matematika</option><option>Bahasa Indonesia</option><option>Bahasa Inggris</option><option>IPAS</option><option>Pendidikan Pancasila</option><option>PJOK</option><option>Agama Islam</option><option>Lainnya</option></select>
+  <label>Nama Game</label><input id="uploadGameTitle" placeholder="Contoh: Balap Penjumlahan 2 Pemain">
+  <label>Keterangan</label><textarea id="uploadGameDesc" rows="2" placeholder="Keterangan game"></textarea>
+  <label>File Game</label><input type="file" id="uploadGameFile" accept=".html,.htm,.zip">
+  <div class="actions"><button class="btn primary" onclick="uploadGame()">🎮 Upload Game</button><button class="btn danger" onclick="toggleGameUpload()">Tutup</button></div>
+  <div id="gameMsg" class="notice">Pilih kelas dan guru pemilik game.</div>
+</div>
+</section>
+
+<section class="page" id="learning">
+<div class="sd52-doc-panel" id="sd52-docs-learning">
+  <h3>📎 Dokumen Learning</h3>
+  <div class="small">Upload foto, video, PDF, Word, Excel, PowerPoint, atau dokumen lainnya khusus untuk menu ini.</div>
+  <div class="sd52-doc-form">
+    <div>
+      <label>Keterangan File</label>
+      <input type="text" id="sd52-desc-learning" placeholder="Contoh: Dokumentasi / laporan / surat">
+    </div>
+    <div>
+      <label>Pilih File</label>
+      <input type="file" id="sd52-file-learning" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip">
+    </div>
+    <button class="btn primary" type="button" onclick="sd52UploadMenuFile('learning')">📤 Upload</button>
+  </div>
+  <div id="sd52-msg-learning" class="notice" style="margin-top:10px"></div>
+  <div class="row" style="margin-top:12px">
+    <h4 style="margin:0">📂 File Menu Ini</h4>
+    <button class="btn soft" type="button" onclick="sd52LoadMenuFiles('learning')">🔄 Refresh</button>
+  </div>
+  <div id="sd52-list-learning" class="sd52-doc-list"><p class="muted">Memuat file...</p></div>
+</div>
+
+<button class="back-btn" type="button" onclick="goBackPortal()">↩️ Kembali</button><div class="hero"><h2>🧠 Media Pembelajaran</h2><p class="muted">Ruang media berdasarkan mata pelajaran.</p></div><div class="grid" id="learningGrid"></div></section>
+<section class="page" id="teaching">
+<div class="sd52-doc-panel" id="sd52-docs-teaching">
+  <h3>📎 Dokumen Teaching</h3>
+  <div class="small">Upload foto, video, PDF, Word, Excel, PowerPoint, atau dokumen lainnya khusus untuk menu ini.</div>
+  <div class="sd52-doc-form">
+    <div>
+      <label>Keterangan File</label>
+      <input type="text" id="sd52-desc-teaching" placeholder="Contoh: Dokumentasi / laporan / surat">
+    </div>
+    <div>
+      <label>Pilih File</label>
+      <input type="file" id="sd52-file-teaching" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip">
+    </div>
+    <button class="btn primary" type="button" onclick="sd52UploadMenuFile('teaching')">📤 Upload</button>
+  </div>
+  <div id="sd52-msg-teaching" class="notice" style="margin-top:10px"></div>
+  <div class="row" style="margin-top:12px">
+    <h4 style="margin:0">📂 File Menu Ini</h4>
+    <button class="btn soft" type="button" onclick="sd52LoadMenuFiles('teaching')">🔄 Refresh</button>
+  </div>
+  <div id="sd52-list-teaching" class="sd52-doc-list"><p class="muted">Memuat file...</p></div>
+</div>
+
+<button class="back-btn" type="button" onclick="goBackPortal()">↩️ Kembali</button><div class="hero"><h2>📖 Perangkat Pembelajaran</h2><p class="muted">Modul, RPM, LKPD, soal, materi dan administrasi.</p></div><div class="grid" id="teachingGrid"></div></section>
+<section class="page" id="agenda">
+<div class="sd52-doc-panel" id="sd52-docs-agenda">
+  <h3>📎 Dokumen Agenda</h3>
+  <div class="small">Upload foto, video, PDF, Word, Excel, PowerPoint, atau dokumen lainnya khusus untuk menu ini.</div>
+  <div class="sd52-doc-form">
+    <div>
+      <label>Keterangan File</label>
+      <input type="text" id="sd52-desc-agenda" placeholder="Contoh: Dokumentasi / laporan / surat">
+    </div>
+    <div>
+      <label>Pilih File</label>
+      <input type="file" id="sd52-file-agenda" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip">
+    </div>
+    <button class="btn primary" type="button" onclick="sd52UploadMenuFile('agenda')">📤 Upload</button>
+  </div>
+  <div id="sd52-msg-agenda" class="notice" style="margin-top:10px"></div>
+  <div class="row" style="margin-top:12px">
+    <h4 style="margin:0">📂 File Menu Ini</h4>
+    <button class="btn soft" type="button" onclick="sd52LoadMenuFiles('agenda')">🔄 Refresh</button>
+  </div>
+  <div id="sd52-list-agenda" class="sd52-doc-list"><p class="muted">Memuat file...</p></div>
+</div>
+
+<button class="back-btn" type="button" onclick="goBackPortal()">↩️ Kembali</button>
+<div class="hero">
+  <div class="row">
+    <div>
+      <h2>📅 Agenda</h2>
+      <p class="muted">Kelola agenda sekolah sekaligus foto, video, dan dokumen pendukung.</p>
+    </div>
+    <button class="btn primary" onclick="addAgenda()">＋ Tambah Agenda</button>
+  </div>
+</div>
+
+<div class="panel">
+  <h3>📋 Daftar Agenda</h3>
+  <div id="agendaList"></div>
+</div>
+
+<div class="panel" style="margin-top:14px">
+  <h3>📎 Lampiran Agenda</h3>
+  <p class="muted">Upload foto, video, PDF, Word, Excel, PowerPoint, atau dokumen lainnya. File dapat dilihat, di-download, dan dihapus.</p>
+  <div class="row">
+    <div style="flex:2;min-width:220px">
+      <label>Nama/Keterangan File</label>
+      <input id="agendaFileDesc" placeholder="Contoh: Foto rapat sekolah, undangan, dokumentasi apel">
+    </div>
+    <div style="flex:2;min-width:240px">
+      <label>Pilih Foto / Video / Dokumen</label>
+      <input type="file" id="agendaFile" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip">
+    </div>
+  </div>
+  <div class="actions">
+    <button class="btn primary" onclick="uploadAgendaFile()">📤 Upload File</button>
+    <button class="btn soft" onclick="loadAgendaFiles()">🔄 Refresh</button>
+  </div>
+  <div id="agendaFileMsg" class="notice"></div>
+</div>
+
+<div class="panel" style="margin-top:14px">
+  <div class="row">
+    <h3>📂 File Agenda</h3>
+    <span class="tag" id="agendaFileCount">0 file</span>
+  </div>
+  <div id="agendaFiles"></div>
+</div>
+</section>
+<section class="page" id="announcements">
+<div class="sd52-doc-panel" id="sd52-docs-announcements">
+  <h3>📎 Dokumen Announcements</h3>
+  <div class="small">Upload foto, video, PDF, Word, Excel, PowerPoint, atau dokumen lainnya khusus untuk menu ini.</div>
+  <div class="sd52-doc-form">
+    <div>
+      <label>Keterangan File</label>
+      <input type="text" id="sd52-desc-announcements" placeholder="Contoh: Dokumentasi / laporan / surat">
+    </div>
+    <div>
+      <label>Pilih File</label>
+      <input type="file" id="sd52-file-announcements" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip">
+    </div>
+    <button class="btn primary" type="button" onclick="sd52UploadMenuFile('announcements')">📤 Upload</button>
+  </div>
+  <div id="sd52-msg-announcements" class="notice" style="margin-top:10px"></div>
+  <div class="row" style="margin-top:12px">
+    <h4 style="margin:0">📂 File Menu Ini</h4>
+    <button class="btn soft" type="button" onclick="sd52LoadMenuFiles('announcements')">🔄 Refresh</button>
+  </div>
+  <div id="sd52-list-announcements" class="sd52-doc-list"><p class="muted">Memuat file...</p></div>
+</div>
+
+<button class="back-btn" type="button" onclick="goBackPortal()">↩️ Kembali</button><div class="hero"><div class="row"><h2>📢 Pengumuman</h2><button class="btn primary" onclick="addAnnouncement()">＋ Tambah</button></div></div><div class="panel" id="annList"></div></section>
+<section class="page" id="gallery">
+<div class="sd52-doc-panel" id="sd52-docs-gallery">
+  <h3>📎 Dokumen Gallery</h3>
+  <div class="small">Upload foto, video, PDF, Word, Excel, PowerPoint, atau dokumen lainnya khusus untuk menu ini.</div>
+  <div class="sd52-doc-form">
+    <div>
+      <label>Keterangan File</label>
+      <input type="text" id="sd52-desc-gallery" placeholder="Contoh: Dokumentasi / laporan / surat">
+    </div>
+    <div>
+      <label>Pilih File</label>
+      <input type="file" id="sd52-file-gallery" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip">
+    </div>
+    <button class="btn primary" type="button" onclick="sd52UploadMenuFile('gallery')">📤 Upload</button>
+  </div>
+  <div id="sd52-msg-gallery" class="notice" style="margin-top:10px"></div>
+  <div class="row" style="margin-top:12px">
+    <h4 style="margin:0">📂 File Menu Ini</h4>
+    <button class="btn soft" type="button" onclick="sd52LoadMenuFiles('gallery')">🔄 Refresh</button>
+  </div>
+  <div id="sd52-list-gallery" class="sd52-doc-list"><p class="muted">Memuat file...</p></div>
+</div>
+
+<button class="back-btn" type="button" onclick="goBackPortal()">↩️ Kembali</button><div class="hero"><h2>🖼️ Galeri</h2><p class="muted">Tempat dokumentasi foto kegiatan.</p><input type="file" id="photos" accept="image/*" multiple onchange="addPhotos()"></div><div class="grid" id="galleryGrid"></div></section>
+<section class="page" id="reports">
+<div class="sd52-doc-panel" id="sd52-docs-reports">
+  <h3>📎 Dokumen Reports</h3>
+  <div class="small">Upload foto, video, PDF, Word, Excel, PowerPoint, atau dokumen lainnya khusus untuk menu ini.</div>
+  <div class="sd52-doc-form">
+    <div>
+      <label>Keterangan File</label>
+      <input type="text" id="sd52-desc-reports" placeholder="Contoh: Dokumentasi / laporan / surat">
+    </div>
+    <div>
+      <label>Pilih File</label>
+      <input type="file" id="sd52-file-reports" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip">
+    </div>
+    <button class="btn primary" type="button" onclick="sd52UploadMenuFile('reports')">📤 Upload</button>
+  </div>
+  <div id="sd52-msg-reports" class="notice" style="margin-top:10px"></div>
+  <div class="row" style="margin-top:12px">
+    <h4 style="margin:0">📂 File Menu Ini</h4>
+    <button class="btn soft" type="button" onclick="sd52LoadMenuFiles('reports')">🔄 Refresh</button>
+  </div>
+  <div id="sd52-list-reports" class="sd52-doc-list"><p class="muted">Memuat file...</p></div>
+</div>
+
+<button class="back-btn" type="button" onclick="goBackPortal()">↩️ Kembali</button><div class="hero"><h2>📊 Rekap</h2></div><div class="stats"><div class="stat"><b id="rFiles">0</b><div class="muted">Berkas</div></div><div class="stat"><b>6</b><div class="muted">Kelas</div></div><div class="stat"><b>7</b><div class="muted">Kegiatan</div></div><div class="stat"><b id="rBooks">42</b><div class="muted">Buku</div></div></div><button class="btn soft" onclick="window.print()">🖨️ Cetak</button></section>
+<section class="page" id="settings">
+<div class="sd52-doc-panel" id="sd52-docs-settings">
+  <h3>📎 Dokumen Settings</h3>
+  <div class="small">Upload foto, video, PDF, Word, Excel, PowerPoint, atau dokumen lainnya khusus untuk menu ini.</div>
+  <div class="sd52-doc-form">
+    <div>
+      <label>Keterangan File</label>
+      <input type="text" id="sd52-desc-settings" placeholder="Contoh: Dokumentasi / laporan / surat">
+    </div>
+    <div>
+      <label>Pilih File</label>
+      <input type="file" id="sd52-file-settings" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip">
+    </div>
+    <button class="btn primary" type="button" onclick="sd52UploadMenuFile('settings')">📤 Upload</button>
+  </div>
+  <div id="sd52-msg-settings" class="notice" style="margin-top:10px"></div>
+  <div class="row" style="margin-top:12px">
+    <h4 style="margin:0">📂 File Menu Ini</h4>
+    <button class="btn soft" type="button" onclick="sd52LoadMenuFiles('settings')">🔄 Refresh</button>
+  </div>
+  <div id="sd52-list-settings" class="sd52-doc-list"><p class="muted">Memuat file...</p></div>
+</div>
+
+<button class="back-btn" type="button" onclick="goBackPortal()">↩️ Kembali</button><div class="hero"><h2>⚙️ Pengaturan</h2></div><div class="panel"><label>Nama Sekolah</label><input id="school" value="SD Negeri 52 Mataram"><label>Tahun Pelajaran</label><input id="year" value="2026/2027"><label>Guru Kelas</label><input id="teacher" value="Syahrullah, S.Pd"><button class="btn green" onclick="saveSettings()">💾 Simpan</button><div id="setMsg" class="notice"></div></div></section>
+
+</main></div>
+<div class="mobilebar"><div class="scroll" id="mobileNav"></div></div>
+<footer>SD Negeri 52 Mataram • Portal Sekolah 2026/2027</footer>
+
+<script>
+/* ====== SUPABASE ====== */
+const SUPABASE_URL="https://wtlwtwwcykmpdqkbboxq.supabase.co";
+const SUPABASE_ANON_KEY="sb_publishable_qio8myMaThkhOvQzYpV4Bg_TK2cM9OD";
+const BUCKET="sd52-files";
+function initSB(){if(!window.supabase||!SUPABASE_URL.startsWith("http")||SUPABASE_ANON_KEY.startsWith("ISI_"))return null;return window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY)}
+
+/* ====== NAVIGASI ====== */
+const menuGroups=[
+["UTAMA",[["dashboard","🏠","Dashboard"]]],
+["ADMINISTRASI",[["files","📁","Berkas"]]],
+["KEGIATAN",[["activities","📋","Kegiatan"],["attendance","📝","Absensi"]]],
+["DATA",[["students","👨‍🎓","Data Siswa"]]],
+["INFORMASI",[["agenda","📅","Agenda"],["announcements","📢","Pengumuman"]]],
+["DOKUMENTASI",[["gallery","🖼️","Galeri"]]],
+["PEMBELAJARAN",[["books","📚","Buku Digital"],["games","🎮","Game Edukasi"],["learning","🧠","Media Belajar"],["teaching","📖","Perangkat"]]],
+["LAPORAN",[["reports","📊","Rekap"]]],
+["SISTEM",[["settings","⚙️","Pengaturan"]]]
+];
+const allMenu=menuGroups.flatMap(g=>g[1]);
+function makeNav(){return menuGroups.map(g=>`<div class="group">${g[0]}</div>`+g[1].map(m=>`<button class="nav ${m[0]==="dashboard"?"active":""}" data-id="${m[0]}" onclick="showPage('${m[0]}')">${m[1]} ${m[2]}</button>`).join("")).join("")}
+side.innerHTML=makeNav();mobileNav.innerHTML=menuGroups.flatMap(g=>g[1]).map(m=>`<button class="nav ${m[0]==="dashboard"?"active":""}" data-id="${m[0]}" onclick="showPage('${m[0]}')">${m[1]} ${m[2]}</button>`).join("");
+function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav").forEach(n=>n.classList.toggle("active",n.dataset.id===id));scrollTo(0,0);if(id==="files")loadFiles();if(id==="attendance")renderAttendance();if(id==="books")renderBooks();if(id==="games")renderGames()}
+
+/* ====== DATA DASAR ====== */
+const students3=["Ahmad Faqih Wijaya","Ali Akbar Amrullah","Alifa Azzahra Amrullah","Ardi Maulana Yusuf","Danish Fayyadh","Harist Al Hammam","I Made Adi Wiguna Wabawa","Lailatul Ramadhani Firdaouz","Muhamad Nizam"];
+const rosters={1:Array.from({length:20},(_,i)=>"Siswa Kelas 1 Nomor "+(i+1)),2:Array.from({length:20},(_,i)=>"Siswa Kelas 2 Nomor "+(i+1)),3:students3,4:Array.from({length:20},(_,i)=>"Siswa Kelas 4 Nomor "+(i+1)),5:Array.from({length:20},(_,i)=>"Siswa Kelas 5 Nomor "+(i+1)),6:Array.from({length:20},(_,i)=>"Siswa Kelas 6 Nomor "+(i+1))};
+const activitiesData=[["🧹","Piket Kelas"],["🇮🇩","Apel Pagi"],["🔢","Numerasi"],["📖","Literasi"],["🕌","Imtaq"],["🏃","PJOK"],["🎨","Seni"],["🤝","Rapat"]];
+const subjects=["Matematika","Bahasa Indonesia","Bahasa Inggris","IPAS","Pendidikan Pancasila","PJOK","Agama Islam"];
+const mainMenuItems=[
+["files","📁","Berkas"],
+["activities","📋","Kegiatan"],
+["attendance","📝","Absensi"],
+["students","👨‍🎓","Data Siswa"],
+["agenda","📅","Agenda"],
+["announcements","📢","Pengumuman"],
+["gallery","🖼️","Galeri"],
+["books","📚","Buku Digital"],
+["games","🎮","Game Edukasi"],
+["learning","🧠","Media Belajar"],
+["teaching","📖","Perangkat"],
+["reports","📊","Rekap"],
+["settings","⚙️","Pengaturan"]
+];
+quick.innerHTML=mainMenuItems.map(m=>`<div class="card click" onclick="showPage('${m[0]}')"><div class="icon">${m[1]}</div><h3>${m[2]}</h3><span class="tag">Buka menu</span></div>`).join("");
+activityGrid.innerHTML=activitiesData.map(a=>`<div class="card click" onclick="sd52OpenActivity('${enc(a[1])}')"><div class="icon">${a[0]}</div><h3>${a[1]}</h3><p class="muted">Catatan dan dokumentasi kegiatan.</p><button class="btn soft" type="button">📁 Kelola</button></div>`).join("");
+learningGrid.innerHTML=subjects.map(x=>`<div class="card click" onclick="showPage('games')"><div class="icon">🧠</div><h3>${x}</h3><p class="muted">Media pembelajaran dan game ${x}.</p><button class="btn primary">🎮 Buka Game</button></div>`).join("");
+teachingGrid.innerHTML=["Modul Ajar","RPM","LKPD","Bank Soal","Materi Pembelajaran","Administrasi Kelas"].map(x=>`<div class="card click" onclick="showPage('files')"><div class="icon">📖</div><h3>${x}</h3><p class="muted">Simpan dokumen ${x.toLowerCase()} di Pusat Berkas.</p><button class="btn soft">📁 Buka</button></div>`).join("");
+
+/* ====== ABSENSI ====== */
+function getRoster(k){return JSON.parse(localStorage.getItem("roster_"+k)||"null")||rosters[k]}
+function renderAttendance(){
+ if(!attDate.value)attDate.value=new Date().toISOString().slice(0,10);
+ const k=attClass.value,names=getRoster(k),key="att_"+k+"_"+attDate.value,saved=JSON.parse(localStorage.getItem(key)||"null")||[];
+ attLabel.textContent="Kelas "+k;attInfo.textContent=`Kelas ${k} • ${attDate.value} • ${names.length} siswa`;
+ attBody.innerHTML=names.map((n,i)=>`<tr><td>${i+1}</td><td>${esc(n)}</td><td><select data-att="${i}" onchange="attSummary()"><option ${saved[i]==="Hadir"?"selected":""}>Hadir</option><option ${saved[i]==="Sakit"?"selected":""}>Sakit</option><option ${saved[i]==="Izin"?"selected":""}>Izin</option><option ${saved[i]==="Alpa"?"selected":""}>Alpa</option></select></td></tr>`).join("");roster.value=names.join("\n");attSummary();loadAttFiles()
+}
+function attSummary(){const v=[...document.querySelectorAll("[data-att]")].map(x=>x.value);aHadir.textContent=v.filter(x=>x==="Hadir").length;aSakit.textContent=v.filter(x=>x==="Sakit").length;aIzin.textContent=v.filter(x=>x==="Izin").length;aAlpa.textContent=v.filter(x=>x==="Alpa").length}
+function saveAttendance(){const k=attClass.value,d=attDate.value,v=[...document.querySelectorAll("[data-att]")].map(x=>x.value);localStorage.setItem("att_"+k+"_"+d,JSON.stringify(v));attSummary();alert(`Absensi Kelas ${k} tersimpan.\\nHadir ${aHadir.textContent} • Sakit ${aSakit.textContent} • Izin ${aIzin.textContent} • Alpa ${aAlpa.textContent}`)}
+function saveRoster(){const k=attClass.value,n=roster.value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);if(!n.length)return alert("Isi nama siswa.");localStorage.setItem("roster_"+k,JSON.stringify(n));renderAttendance()}
+async function uploadAttendance(){const c=initSB();if(!c){attMsg.textContent="⚠️ Supabase belum dikonfigurasi.";return}const f=attFile.files[0];if(!f)return alert("Pilih berkas.");const path=`absensi/kelas-${attClass.value}/${Date.now()}_${safe(f.name)}`;attMsg.textContent="⏳ Upload...";const {error}=await c.storage.from(BUCKET).upload(path,f,{upsert:false,contentType:f.type});attMsg.textContent=error?"❌ "+error.message:"✅ Berkas absensi berhasil diupload.";if(!error)loadAttFiles()}
+async function loadAttFiles(){const box=attFiles,c=initSB();if(!c){box.innerHTML="";return}const k=attClass.value,{data,error}=await c.storage.from(BUCKET).list("absensi/kelas-"+k,{limit:50,sortBy:{column:"created_at",order:"desc"}});if(error){box.innerHTML="";return}box.innerHTML=data?.length?"<h3>📂 Berkas Kelas "+k+"</h3>"+data.map(f=>{const p=`absensi/kelas-${k}/${f.name}`,u=c.storage.from(BUCKET).getPublicUrl(p).data.publicUrl;return `<div class=item><b>📄 ${esc(f.name)}</b><div class=actions><a class="btn soft" href="${u}" target="_blank">👁️ Buka</a><button class="btn primary" onclick="downloadPath('${enc(p)}','${enc(f.name)}')">⬇️ Download</button><button class="btn danger" onclick="deletePath('${enc(p)}');setTimeout(loadAttFiles,500)">🗑️ Hapus</button></div></div>`}).join(""):""}
+studentsList();
+function studentsList(){renderStudents()}
+function renderStudents(){const q=(studentSearch.value||"").toLowerCase(),arr=students3.filter(x=>x.toLowerCase().includes(q));studentBody.innerHTML=arr.map((n,i)=>`<tr><td>${i+1}</td><td>${esc(n)}</td><td>Kelas 3</td><td><span class=tag>Aktif</span></td></tr>`).join("")}
+
+/* ====== BUKU DIGITAL ====== */
+const bookData=[];for(let k=1;k<=6;k++)subjects.forEach(s=>bookData.push([k,s+" Kelas "+k,s]));
+let selectedBookClass=3;
+function renderBookTabs(){bookTabs.innerHTML=[1,2,3,4,5,6].map(k=>`<button class="tab ${k===selectedBookClass?"active":""}" onclick="selectedBookClass=${k};renderBookTabs();renderBooks()">📚 Kelas ${k}</button>`).join("")}
+function getBooks(){return JSON.parse(localStorage.getItem("books_v3")||"null")||bookData}
+function renderBooks(){renderBookTabs();const q=(document.getElementById("bookSearch")?.value||"").toLowerCase();const arr=getBooks().filter(b=>b[0]===selectedBookClass&&(b[1]+" "+b[2]).toLowerCase().includes(q));bookCount.textContent=arr.length;dashBooks.textContent=getBooks().length; rBooks.textContent=getBooks().length;bookStatus.textContent=initSB()?"ONLINE":"LOCAL";bookGrid.innerHTML=arr.map((b,i)=>`<div class="card"><div class=bookcover>📚</div><span class=tag>Kelas ${b[0]} • ${esc(b[2])}</span><h3>${esc(b[1])}</h3><p class=muted>${esc(b[3]||"Buku digital pembelajaran.")}</p><button class="btn primary" onclick="openBook('${enc(b[1])}')">📖 Buka</button></div>`).join("")||"<div class=card>Belum ada buku.</div>"}
+function toggleBookUpload(){bookUpload.style.display=bookUpload.style.display==="none"?"block":"none"}
+async function addBook(){const t=bookTitle.value.trim();if(!t)return alert("Isi judul buku.");const k=Number(uploadClass.value),s=bookSubject.value,d=bookDesc.value.trim();const arr=getBooks();arr.push([k,t,s,d]);localStorage.setItem("books_v3",JSON.stringify(arr));const f=bookFile.files[0],c=initSB();if(f&&c){const p=`buku/kelas-${k}/${Date.now()}_${safe(f.name)}`;const r=await c.storage.from(BUCKET).upload(p,f,{upsert:false,contentType:f.type});bookMsg.textContent=r.error?"⚠️ Katalog tersimpan, upload online gagal.":"✅ Buku dan file tersimpan online."}else bookMsg.textContent="✅ Buku masuk katalog.";bookTitle.value="";bookDesc.value="";bookFile.value="";renderBooks()}
+function openBook(t){alert("📖 "+dec(t)+"\\n\\nKatalog sudah tersedia. Setelah file buku tersimpan di Supabase, tombol ini dapat diarahkan langsung ke PDF/DOC.")}
+
+/* ====== GAME ====== */
+const gameData=[
+[1,"Guru Kelas 1","Matematika","➕","Balap Penjumlahan Kelas 1"],
+[2,"Guru Kelas 2","Matematika","➖","Balap Pengurangan Kelas 2"],
+[3,"Syahrullah, S.Pd","Matematika","✖️","Tantangan Perkalian 2 Pemain"],
+[3,"Syahrullah, S.Pd","Matematika","✈️","Pesawat Kalimat Matematika"],
+[3,"Syahrullah, S.Pd","Bahasa Indonesia","📖","Petualangan Bahasa Indonesia"],
+[3,"Syahrullah, S.Pd","Bahasa Inggris","🔤","English Vocabulary Challenge"],
+[3,"Syahrullah, S.Pd","IPAS","👁️","Misi Panca Indra"],
+[3,"Syahrullah, S.Pd","Pendidikan Pancasila","🇮🇩","Pancasila Adventure"],
+[3,"Syahrullah, S.Pd","Agama Islam","🕌","Mentari Solat Dhuha"],
+[4,"Guru Kelas 4","IPAS","🔬","Misi Sains Kelas 4"],
+[5,"Guru Kelas 5","Bahasa Indonesia","📚","Tantangan Bahasa Kelas 5"],
+[6,"Guru Kelas 6","Matematika","🏆","Tebak Cepat Matematika Kelas 6"]
+];
+function getGames(){return JSON.parse(localStorage.getItem("games_v4")||"null")||gameData}
+function safeTeacher(t){return safe(t).replace(/_/g,"-")}
+function renderGames(){
+  const box=document.getElementById("gameList");
+  if(!box)return;
+  const cf=(document.getElementById("gameClassFilter")||{}).value||"";
+  const tf=(document.getElementById("gameTeacherFilter")||{}).value||"";
+  const games=JSON.parse(localStorage.getItem("games_v5")||"[]").filter(g=>
+    (!cf || String(g.kelas)===String(cf)) && (!tf || g.guru===tf)
+  );
+  if(!games.length){box.innerHTML='<p class="muted">Belum ada game pada pilihan tersebut.</p>';return}
+  box.innerHTML=games.map((g,i)=>`<div class="item">
+    <div><b>🎮 ${esc(g.nama)}</b>
+    <div class="small">Kelas ${esc(g.kelas)} • ${esc(g.guru)} • ${esc(g.mapel)}</div>
+    ${g.keterangan?`<p>${esc(g.keterangan)}</p>`:""}
+    <div class="small">📄 ${esc(g.file||"")}</div></div>
+    <div class="actions">
+      <button class="btn primary" onclick="playUploadedGame('${enc(g.path||"")}')">▶️ Mainkan</button>
+      <button class="btn soft" onclick="downloadGameFile('${enc(g.path||"")}','${enc(g.file||"game.html")}')">⬇️ Download</button>
+      <button class="btn danger" onclick="removeGame('${enc(g.path||"")}')">🗑️ Hapus</button>
+    </div>
+  </div>`).join("");
+}
+function toggleGameUpload(){gameUpload.style.display=gameUpload.style.display==="none"?"block":"none"}
+async function uploadGame(){
+  const c=initSB();
+  const msg=document.getElementById("gameMsg") || document.getElementById("gameUploadMsg");
+  const setMsg=(s)=>{if(msg)msg.textContent=s};
+
+  if(!c){
+    setMsg("❌ Supabase belum terhubung. Isi SUPABASE_URL dan SUPABASE_ANON_KEY.");
+    alert("Supabase belum terhubung. Isi Project URL dan Anon/Publishable Key terlebih dahulu.");
+    return;
+  }
+
+  const k=(document.getElementById("gameClass")||{}).value||"";
+  const teacher=((document.getElementById("gameTeacher")||{}).value||"").trim();
+  const subject=((document.getElementById("gameSubject")||{}).value||"").trim();
+  const title=((document.getElementById("gameName")||{}).value||"").trim();
+  const desc=((document.getElementById("gameDesc")||{}).value||"").trim();
+  const fileEl=document.getElementById("gameFile");
+  const f=fileEl && fileEl.files ? fileEl.files[0] : null;
+
+  if(!k || !teacher || !subject || !title || !f){
+    alert("Lengkapi Kelas, Nama Guru, Mata Pelajaran, Nama Game, dan pilih File Game.");
+    return;
+  }
+  if(!/\.(html?|zip)$/i.test(f.name)){
+    alert("File game harus .html, .htm, atau .zip.");
+    return;
+  }
+  if(f.size>50*1024*1024){
+    alert("Ukuran file terlalu besar. Maksimal 50 MB.");
+    return;
+  }
+
+  const safeTeacherName=safe(teacher).replace(/[^a-zA-Z0-9_-]/g,"-").slice(0,80)||"guru";
+  const safeFileName=safe(f.name).replace(/[^a-zA-Z0-9._-]/g,"-");
+  const path=`games/kelas-${k}/${safeTeacherName}/${Date.now()}_${safeFileName}`;
+
+  setMsg("⏳ Sedang mengupload game ke Supabase...");
+
+  try{
+    const {error}=await c.storage.from(BUCKET).upload(path,f,{
+      cacheControl:"3600",
+      upsert:false,
+      contentType:f.type || (/\.(html?|htm)$/i.test(f.name) ? "text/html" : "application/zip")
+    });
+
+    if(error){
+      console.error(error);
+      setMsg("❌ Upload gagal: "+error.message);
+      alert("Upload game gagal.\n\n"+error.message+"\n\nPeriksa bucket Storage dan Storage Policies Supabase.");
+      return;
+    }
+
+    const games=JSON.parse(localStorage.getItem("games_v5")||"[]");
+    games.unshift({
+      id:"g_"+Date.now(),
+      kelas:String(k), guru:teacher, mapel:subject, nama:title,
+      keterangan:desc, file:f.name, path:path, size:f.size,
+      type:f.type||"", created_at:new Date().toISOString()
+    });
+    localStorage.setItem("games_v5",JSON.stringify(games));
+
+    setMsg("✅ Game berhasil diupload.");
+    fileEl.value="";
+    document.getElementById("gameName").value="";
+    document.getElementById("gameDesc").value="";
+    if(typeof renderGames==="function")renderGames();
+    alert("✅ Game berhasil diupload ke Supabase.");
+  }catch(err){
+    console.error(err);
+    setMsg("❌ Terjadi kesalahan: "+(err.message||err));
+    alert("Terjadi kesalahan saat upload game: "+(err.message||err));
+  }
+}
+async function playUploadedGame(ep){
+  const c=initSB(); if(!c){alert("Supabase belum dikonfigurasi.");return}
+  const p=dec(ep);
+  const {data,error}=c.storage.from(BUCKET).getPublicUrl(p);
+  if(error || !data?.publicUrl){alert("Game tidak dapat dibuka. Pastikan bucket sd52-files dibuat Public.");return}
+  window.open(data.publicUrl,"_blank","noopener");
+}
+function playGame(t){alert("🎮 "+dec(t)+"\\n\\nGame contoh sudah masuk katalog. Game yang di-upload akan memiliki tombol Mainkan aktif.")}
+async function removeGame(ep){
+  if(!confirm("Hapus game ini dari Storage Supabase dan daftar?"))return;
+  const c=initSB(),p=dec(ep);
+  if(c){
+    const {error}=await c.storage.from(BUCKET).remove([p]);
+    if(error){alert("Hapus gagal: "+error.message);return}
+  }
+  const games=JSON.parse(localStorage.getItem("games_v5")||"[]").filter(g=>g.path!==p);
+  localStorage.setItem("games_v5",JSON.stringify(games));
+  renderGames();
+}
+/* ====== FILES ====== */
+let fileClient=null,allFiles=[];
+async function loadFiles(){fileClient=initSB();if(!fileClient){fileList.innerHTML="<div class=notice>Supabase belum dikonfigurasi. Fitur tampilan siap, penyimpanan online menunggu Project URL dan Anon Key.</div>";dashFiles.textContent="—";rFiles.textContent="—";return}fileList.textContent="⏳ Memuat...";const {data,error}=await fileClient.storage.from(BUCKET).list("dokumen",{limit:100,sortBy:{column:"created_at",order:"desc"}});if(error){fileList.innerHTML="<div class='notice err'>"+esc(error.message)+"</div>";return}allFiles=data||[];renderFiles(allFiles)}
+function filterFiles(){const q=(fileSearch.value||"").toLowerCase();renderFiles(allFiles.filter(f=>f.name.toLowerCase().includes(q)))}
+function renderFiles(arr){dashFiles.textContent=arr.length;rFiles.textContent=arr.length;if(!arr.length){fileList.innerHTML="<p class=muted>Belum ada berkas.</p>";return}fileList.innerHTML=arr.map(f=>{const p="dokumen/"+f.name,u=fileClient.storage.from(BUCKET).getPublicUrl(p).data.publicUrl;return `<div class=item><b>📄 ${esc(f.name)}</b><div class=small>${f.created_at?new Date(f.created_at).toLocaleString("id-ID"):""}</div><div class=actions><a class="btn soft" href="${u}" target="_blank">👁️ Buka</a><button class="btn primary" onclick="downloadPath('${enc(p)}','${enc(f.name)}')">⬇️ Download</button><button class="btn danger" onclick="deletePath('${enc(p)}')">🗑️ Hapus</button></div></div>`}).join("")}
+async function uploadFile(){fileClient=initSB();if(!fileClient){fileMsg.textContent="⚠️ Supabase belum dikonfigurasi.";return}const f=fileInput.files[0];if(!f)return alert("Pilih file.");fileMsg.textContent="⏳ Upload...";const p=`dokumen/${Date.now()}_${safe(f.name)}`,r=await fileClient.storage.from(BUCKET).upload(p,f,{upsert:false,contentType:f.type});fileMsg.textContent=r.error?"❌ "+r.error.message:"✅ Upload berhasil.";if(!r.error)loadFiles()}
+async function downloadPath(ep,en){const c=initSB();if(!c)return alert("Supabase belum dikonfigurasi.");const r=await c.storage.from(BUCKET).download(dec(ep));if(r.error)return alert(r.error.message);const u=URL.createObjectURL(r.data),a=document.createElement("a");a.href=u;a.download=dec(en);document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+async function deletePath(ep){if(!confirm("Yakin ingin menghapus file ini?"))return;const c=initSB();if(!c)return;const r=await c.storage.from(BUCKET).remove([dec(ep)]);if(r.error)alert(r.error.message);else loadFiles()}
+
+/* ====== AGENDA / PENGUMUMAN / GALERI / PENGATURAN ====== */
+function addAgenda(){const t=prompt("Nama agenda:");if(!t)return;const a=JSON.parse(localStorage.getItem("agenda_v3")||"[]");a.push([t,prompt("Tanggal",new Date().toISOString().slice(0,10)),prompt("Keterangan","")]);localStorage.setItem("agenda_v3",JSON.stringify(a));renderAgenda()}
+function renderAgenda(){const a=JSON.parse(localStorage.getItem("agenda_v3")||"[]");agendaList.innerHTML=a.length?a.map((x,i)=>`<div class=item><b>📅 ${esc(x[0])}</b><div class=small>${esc(x[1])}</div><p>${esc(x[2])}</p><button class="btn danger" onclick="delAgenda(${i})">🗑️ Hapus Agenda</button></div>`).join(""):"<p class=muted>Belum ada agenda.</p>"}
+function delAgenda(i){const a=JSON.parse(localStorage.getItem("agenda_v3")||"[]");a.splice(i,1);localStorage.setItem("agenda_v3",JSON.stringify(a));renderAgenda()}
+
+function agendaFileIcon(name,type){
+  const n=(name||"").toLowerCase();
+  if((type||"").startsWith("image/")) return "🖼️";
+  if((type||"").startsWith("video/")) return "🎥";
+  if(n.endsWith(".pdf")) return "📕";
+  if(/\.(doc|docx)$/.test(n)) return "📝";
+  if(/\.(xls|xlsx|csv)$/.test(n)) return "📊";
+  if(/\.(ppt|pptx)$/.test(n)) return "📽️";
+  if(n.endsWith(".zip")) return "🗜️";
+  return "📄";
+}
+async function uploadAgendaFile(){
+  const c=initSB();
+  if(!c){agendaFileMsg.textContent="⚠️ Supabase belum dikonfigurasi. Isi Project URL dan Anon/Publishable Key terlebih dahulu.";return}
+  const f=agendaFile.files[0];
+  if(!f){alert("Pilih foto, video, atau dokumen terlebih dahulu.");return}
+  const desc=(agendaFileDesc.value||"").trim();
+  const path=`agenda/${Date.now()}_${safe(f.name)}`;
+  agendaFileMsg.textContent="⏳ Sedang mengupload file...";
+  const {error}=await c.storage.from(BUCKET).upload(path,f,{upsert:false,contentType:f.type||"application/octet-stream"});
+  if(error){agendaFileMsg.textContent="❌ Upload gagal: "+error.message;return}
+  localStorage.setItem("agenda_last_file_desc_"+path,desc);
+  agendaFileMsg.textContent="✅ File agenda berhasil diupload.";
+  agendaFile.value="";agendaFileDesc.value="";
+  loadAgendaFiles();
+}
+async function loadAgendaFiles(){
+  const box=document.getElementById("agendaFiles"),count=document.getElementById("agendaFileCount"),c=initSB();
+  if(!c){box.innerHTML="<div class='notice'>Supabase belum dikonfigurasi. Setelah URL dan key dimasukkan, file agenda akan tampil di sini.</div>";count.textContent="0 file";return}
+  box.innerHTML="<p class='muted'>⏳ Memuat file agenda...</p>";
+  const {data,error}=await c.storage.from(BUCKET).list("agenda",{limit:100,sortBy:{column:"created_at",order:"desc"}});
+  if(error){box.innerHTML="<div class='notice err'>❌ "+esc(error.message)+"</div>";count.textContent="0 file";return}
+  const files=data||[];count.textContent=files.length+" file";
+  if(!files.length){box.innerHTML="<p class='muted'>Belum ada file foto, video, atau dokumen agenda.</p>";return}
+  box.innerHTML=files.map(f=>{
+    const p=`agenda/${f.name}`;
+    const u=c.storage.from(BUCKET).getPublicUrl(p).data.publicUrl;
+    const type=f.metadata?.mimetype||"";
+    const icon=agendaFileIcon(f.name,type);
+    const desc=localStorage.getItem("agenda_last_file_desc_"+p)||"";
+    const isImage=type.startsWith("image/");
+    const isVideo=type.startsWith("video/");
+    const preview=isImage
+      ? `<div style="margin-top:8px"><img src="${u}" alt="${esc(f.name)}" style="width:100%;max-width:260px;max-height:180px;object-fit:cover;border-radius:10px;border:1px solid #e5e7eb"></div>`
+      : isVideo
+        ? `<div style="margin-top:8px"><video controls preload="metadata" style="width:100%;max-width:420px;border-radius:10px"><source src="${u}" type="${esc(type)}"></video></div>`
+        : "";
+    return `<div class="item">
+      <div><b>${icon} ${esc(f.name)}</b>
+      <div class="small">${desc?esc(desc)+" • ":""}${f.created_at?new Date(f.created_at).toLocaleString("id-ID"):""}</div>
+      ${preview}</div>
+      <div class="actions" style="margin-top:10px">
+        <a class="btn soft" href="${u}" target="_blank">👁️ Lihat</a>
+        <button class="btn primary" onclick="downloadAgendaFile('${enc(p)}','${enc(f.name)}')">⬇️ Download</button>
+        <button class="btn danger" onclick="deleteAgendaFile('${enc(p)}')">🗑️ Hapus</button>
+      </div>
+    </div>`;
+  }).join("");
+}
+async function downloadAgendaFile(ep,en){
+  const c=initSB();if(!c)return alert("Supabase belum dikonfigurasi.");
+  const r=await c.storage.from(BUCKET).download(dec(ep));
+  if(r.error){alert("Download gagal: "+r.error.message);return}
+  const u=URL.createObjectURL(r.data),a=document.createElement("a");a.href=u;a.download=dec(en);document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);
+}
+async function deleteAgendaFile(ep){
+  if(!confirm("Yakin ingin menghapus file agenda ini?"))return;
+  const p=dec(ep),c=initSB();if(!c)return;
+  const r=await c.storage.from(BUCKET).remove([p]);
+  if(r.error){alert("Hapus gagal: "+r.error.message);return}
+  localStorage.removeItem("agenda_last_file_desc_"+p);
+  loadAgendaFiles();
+}
+function addAnnouncement(){const t=prompt("Judul pengumuman:");if(!t)return;const a=JSON.parse(localStorage.getItem("ann_v3")||"[]");a.push([t,prompt("Isi","")]);localStorage.setItem("ann_v3",JSON.stringify(a));renderAnn()}
+function renderAnn(){const a=JSON.parse(localStorage.getItem("ann_v3")||"[]");annList.innerHTML=a.length?a.map((x,i)=>`<div class=item><b>📢 ${esc(x[0])}</b><p>${esc(x[1])}</p><button class="btn danger" onclick="delAnn(${i})">🗑️ Hapus</button></div>`).join(""):"<p class=muted>Belum ada pengumuman.</p>"}
+function delAnn(i){const a=JSON.parse(localStorage.getItem("ann_v3")||"[]");a.splice(i,1);localStorage.setItem("ann_v3",JSON.stringify(a));renderAnn()}
+function addPhotos(){[...photos.files].forEach(f=>{const u=URL.createObjectURL(f);galleryGrid.innerHTML+=`<div class=card><img src="${u}" style="width:100%;height:180px;object-fit:cover;border-radius:11px"><button class="btn danger" style="width:100%;margin-top:5px" onclick="this.parentElement.remove()">🗑️ Hapus</button></div>`});photos.value=""}
+function saveSettings(){localStorage.setItem("settings_v3",JSON.stringify({school:school.value,year:year.value,teacher:teacher.value}));setMsg.textContent="✅ Pengaturan tersimpan."}
+function esc(x){return String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}function safe(x){return String(x).replace(/[^\w.\-]/g,"_")}function enc(x){return encodeURIComponent(x)}function dec(x){return decodeURIComponent(x)}
+
+attDate.value=new Date().toISOString().slice(0,10);
+renderAttendance();renderBooks();renderGames();renderAgenda();renderAnn();renderStudents();loadFiles();loadAgendaFiles();
+</script>
+
+<script id="sd52-full-online-layer">
+const SD52_TABLE="sd52_data";
+let sd52SelectedActivity="Piket Kelas";
+function sd52CloudOrAlert(){const c=initSB();if(!c)alert("Supabase belum terhubung. Isi Project URL dan Anon/Publishable Key terlebih dahulu.");return c}
+async function sd52DbList(type){const c=sd52CloudOrAlert();if(!c)return[];const {data,error}=await c.from(SD52_TABLE).select("id,type,key,data,created_at,updated_at").eq("type",type).order("created_at",{ascending:false});if(error)throw error;return data||[]}
+async function sd52DbGet(type,key){const c=initSB();if(!c)return null;const {data,error}=await c.from(SD52_TABLE).select("id,type,key,data").eq("type",type).eq("key",key).maybeSingle();if(error)throw error;return data||null}
+async function sd52DbUpsert(type,key,payload){const c=sd52CloudOrAlert();if(!c)return null;const row={type,key,data:payload,updated_at:new Date().toISOString()};const {data,error}=await c.from(SD52_TABLE).upsert(row,{onConflict:"type,key"}).select().single();if(error)throw error;return data}
+async function sd52DbDelete(type,key){const c=sd52CloudOrAlert();if(!c)return;const {error}=await c.from(SD52_TABLE).delete().eq("type",type).eq("key",key);if(error)throw error}
+function sd52ActivityKey(name){return String(name).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"kegiatan"}
+function sd52ActivityIcon(name){const x=activitiesData.find(a=>a[1]===name);return x?x[0]:"📋"}
+function renderOnlineActivityHub(){const grid=document.getElementById("activityGrid");if(!grid)return;grid.innerHTML=activitiesData.map(a=>`<button type="button" class="card click" style="border:1px solid #e5eaf1;text-align:left;cursor:pointer" onclick="sd52OpenActivity('${enc(a[1])}')"><div class="icon">${a[0]}</div><h3>${esc(a[1])}</h3><p class="muted">Dokumentasi dan file ${esc(a[1])}.</p><span class="tag">📂 Buka kegiatan</span></button>`).join("")}
+function renderActivityWorkspace(){const box=document.getElementById("activityWorkspace");if(!box)return;const name=sd52SelectedActivity,icon=sd52ActivityIcon(name),key=sd52ActivityKey(name);box.innerHTML=`<div class="panel" style="margin-top:16px;border:2px solid #e6edf7"><div class="row"><div><h3 style="margin:0">${icon} ${esc(name)}</h3><div class="small">Folder online: kegiatan/${esc(key)}/</div></div><button class="btn soft" onclick="loadActivityOnline()">🔄 Refresh</button></div><div class="sd52-doc-form" style="margin-top:14px"><div><label>Keterangan</label><input id="activityOnlineDesc" type="text" placeholder="Contoh: Dokumentasi kegiatan ${esc(name)}"></div><div><label>Pilih File</label><input id="activityOnlineFile" type="file" accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip"></div><button class="btn primary" type="button" onclick="uploadActivityOnline()">☁️ Upload Online</button></div><div id="activityOnlineMsg" class="notice" style="margin-top:10px">Semua file kegiatan disimpan di Supabase.</div><div id="activityOnlineList" class="sd52-doc-list"><p class="muted">Memuat file...</p></div></div>`;loadActivityOnline()}
+async function uploadActivityOnline(){const c=sd52CloudOrAlert();if(!c)return;const f=document.getElementById("activityOnlineFile")?.files?.[0];if(!f)return alert("Pilih file terlebih dahulu.");if(f.size>50*1024*1024)return alert("Ukuran file maksimal 50 MB.");const desc=(document.getElementById("activityOnlineDesc")?.value||"").trim();const key=sd52ActivityKey(sd52SelectedActivity),path=`kegiatan/${key}/${Date.now()}_${safe(f.name)}`,msg=document.getElementById("activityOnlineMsg");msg.textContent="⏳ Mengupload...";const {error}=await c.storage.from(BUCKET).upload(path,f,{upsert:false,contentType:f.type||"application/octet-stream",cacheControl:"3600"});if(error){msg.textContent="❌ "+error.message;return}try{await sd52DbUpsert("activity_file",path,{activity:sd52SelectedActivity,description:desc,name:f.name,size:f.size,type:f.type||""})}catch(e){await c.storage.from(BUCKET).remove([path]);msg.textContent="❌ Data file gagal disimpan: "+e.message;return}msg.textContent="✅ File berhasil tersimpan online.";document.getElementById("activityOnlineFile").value="";document.getElementById("activityOnlineDesc").value="";loadActivityOnline()}
+async function loadActivityOnline(){const c=initSB(),list=document.getElementById("activityOnlineList");if(!list)return;if(!c){list.innerHTML='<div class="notice">Supabase belum terhubung.</div>';return}list.innerHTML="⏳ Memuat file online...";const key=sd52ActivityKey(sd52SelectedActivity),prefix=`kegiatan/${key}`;const {data,error}=await c.storage.from(BUCKET).list(prefix,{limit:100,sortBy:{column:"created_at",order:"desc"}});if(error){list.innerHTML=`<div class="notice err">${esc(error.message)}</div>`;return}const files=(data||[]).filter(x=>x.name);if(!files.length){list.innerHTML='<p class="muted">Belum ada dokumentasi untuk kegiatan ini.</p>';return}list.innerHTML=files.map(f=>{const p=`${prefix}/${f.name}`;return `<div class="sd52-doc-card"><b>📄 ${esc(f.name)}</b><div class="small">${f.created_at?new Date(f.created_at).toLocaleString("id-ID"):""}</div><div class="sd52-doc-actions"><button class="btn soft" onclick="viewStorageFile('${enc(p)}')">👁️ Lihat</button><button class="btn primary" onclick="downloadPath('${enc(p)}','${enc(f.name)}')">⬇️ Download</button><button class="btn danger" onclick="deleteActivityOnline('${enc(p)}')">🗑️ Hapus</button></div></div>`}).join("")}
+async function viewStorageFile(ep){const c=initSB();if(!c)return;const r=await c.storage.from(BUCKET).download(dec(ep));if(r.error){alert(r.error.message);return}const u=URL.createObjectURL(r.data);window.open(u,"_blank","noopener");setTimeout(()=>URL.revokeObjectURL(u),60000)}
+async function deleteActivityOnline(ep){if(!confirm("Hapus file kegiatan ini?"))return;const c=initSB();if(!c)return;const p=dec(ep),r=await c.storage.from(BUCKET).remove([p]);if(r.error){alert("Hapus gagal: "+r.error.message);return}try{await sd52DbDelete("activity_file",p)}catch(e){}loadActivityOnline()}
+async function renderAttendanceOnline(){if(!attDate.value)attDate.value=new Date().toISOString().slice(0,10);const k=String(attClass.value),names=await sd52GetRosterOnline(k),key=`att-${k}-${attDate.value}`,row=await sd52DbGet("attendance",key),saved=row?.data?.values||[];attLabel.textContent="Kelas "+k;attInfo.textContent=`Kelas ${k} • ${attDate.value} • ${names.length} siswa`;attBody.innerHTML=names.map((n,i)=>`<tr><td>${i+1}</td><td>${esc(n)}</td><td><select data-att="${i}" onchange="attSummary()"><option ${saved[i]==="Hadir"?"selected":""}>Hadir</option><option ${saved[i]==="Sakit"?"selected":""}>Sakit</option><option ${saved[i]==="Izin"?"selected":""}>Izin</option><option ${saved[i]==="Alpa"?"selected":""}>Alpa</option></select></td></tr>`).join("");roster.value=names.join("\n");attSummary();loadAttFiles()}
+async function sd52GetRosterOnline(k){const row=await sd52DbGet("roster",String(k));return row?.data?.names?.length?row.data.names:(rosters[k]||[])}
+async function saveAttendanceOnline(){const k=String(attClass.value),d=attDate.value,values=[...document.querySelectorAll("[data-att]")].map(x=>x.value);try{await sd52DbUpsert("attendance",`att-${k}-${d}`,{kelas:k,date:d,values});attSummary();alert(`✅ Absensi Kelas ${k} tanggal ${d} tersimpan online.`)}catch(e){alert("❌ Gagal menyimpan absensi: "+e.message)}}
+async function saveRosterOnline(){const k=String(attClass.value),names=roster.value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);if(!names.length)return alert("Isi nama siswa.");try{await sd52DbUpsert("roster",k,{kelas:k,names});await renderAttendanceOnline();alert("✅ Daftar siswa tersimpan online.")}catch(e){alert("❌ Gagal: "+e.message)}}
+async function renderBooksOnline(){renderBookTabs();const q=(document.getElementById("bookSearch")?.value||"").toLowerCase();try{const rows=await sd52DbList("book"),arr=rows.map(r=>r.data).filter(b=>Number(b.kelas)===Number(selectedBookClass)&&(`${b.judul||""} ${b.mapel||""}`).toLowerCase().includes(q));bookCount.textContent=arr.length;dashBooks.textContent=rows.length;rBooks.textContent=rows.length;bookStatus.textContent="ONLINE";bookGrid.innerHTML=arr.map(b=>`<div class="card"><div class="bookcover">📚</div><span class="tag">Kelas ${esc(b.kelas)} • ${esc(b.mapel)}</span><h3>${esc(b.judul)}</h3><p class="muted">${esc(b.deskripsi||"")}</p><button class="btn primary" onclick="openOnlineBook('${enc(b.path||"")}')">📖 Buka</button><button class="btn soft" onclick="downloadPath('${enc(b.path||"")}','${enc(b.file||"buku")}')">⬇️ Download</button></div>`).join("")||"<div class=card>Belum ada buku online.</div>"}catch(e){bookStatus.textContent="ERROR";bookGrid.innerHTML=`<div class="notice err">${esc(e.message)}</div>`}}
+async function addBookOnline(){const c=sd52CloudOrAlert();if(!c)return;const t=bookTitle.value.trim(),k=Number(uploadClass.value),s=bookSubject.value,d=bookDesc.value.trim(),f=bookFile.files[0];if(!t||!f)return alert("Isi judul buku dan pilih file.");if(f.size>50*1024*1024)return alert("Ukuran file maksimal 50 MB.");const path=`buku/kelas-${k}/${Date.now()}_${safe(f.name)}`;bookMsg.textContent="⏳ Upload buku...";const up=await c.storage.from(BUCKET).upload(path,f,{upsert:false,contentType:f.type||"application/octet-stream"});if(up.error){bookMsg.textContent="❌ "+up.error.message;return}try{await sd52DbUpsert("book",crypto.randomUUID(),{kelas:k,mapel:s,judul:t,deskripsi:d,file:f.name,path});bookMsg.textContent="✅ Buku tersimpan online.";bookTitle.value="";bookDesc.value="";bookFile.value="";renderBooksOnline()}catch(e){await c.storage.from(BUCKET).remove([path]);bookMsg.textContent="❌ Data buku gagal disimpan: "+e.message}}
+async function openOnlineBook(ep){if(!ep)return alert("File buku belum tersedia.");await viewStorageFile(ep)}
+async function renderGamesOnline(){const box=document.getElementById("gameList");if(!box)return;const cf=(document.getElementById("gameClassFilter")||{}).value||"",tf=(document.getElementById("gameTeacherFilter")||{}).value||"";try{const rows=await sd52DbList("game"),games=rows.map(r=>r.data).filter(g=>(!cf||String(g.kelas)===String(cf))&&(!tf||g.guru===tf));if(!games.length){box.innerHTML='<p class="muted">Belum ada game online pada pilihan tersebut.</p>';return}box.innerHTML=games.map(g=>`<div class="item"><div><b>🎮 ${esc(g.nama)}</b><div class="small">Kelas ${esc(g.kelas)} • ${esc(g.guru)} • ${esc(g.mapel)}</div>${g.keterangan?`<p>${esc(g.keterangan)}</p>`:""}<div class="small">📄 ${esc(g.file||"")}</div></div><div class="actions"><button class="btn primary" onclick="playOnlineGame('${enc(g.path||"")}')">▶️ Mainkan</button><button class="btn soft" onclick="downloadPath('${enc(g.path||"")}','${enc(g.file||"game.html")}')">⬇️ Download</button><button class="btn danger" onclick="deleteOnlineGame('${enc(g.id||"")}','${enc(g.path||"")}')">🗑️ Hapus</button></div></div>`).join("")}catch(e){box.innerHTML=`<div class="notice err">${esc(e.message)}</div>`}}
+async function uploadGameOnline(){const c=sd52CloudOrAlert();if(!c)return;const k=(document.getElementById("gameClass")||{}).value||"",teacher=((document.getElementById("gameTeacher")||{}).value||"").trim(),subject=((document.getElementById("gameSubject")||{}).value||"").trim(),title=((document.getElementById("gameName")||{}).value||"").trim(),desc=((document.getElementById("gameDesc")||{}).value||"").trim(),fileEl=document.getElementById("gameFile"),f=fileEl?.files?.[0];if(!k||!teacher||!subject||!title||!f)return alert("Lengkapi Kelas, Nama Guru, Mata Pelajaran, Nama Game, dan pilih file.");if(!/\.(html?|zip)$/i.test(f.name))return alert("Game harus .html, .htm atau .zip.");if(f.size>50*1024*1024)return alert("Ukuran maksimal 50 MB.");const path=`games/kelas-${k}/${safeTeacher(teacher)}/${Date.now()}_${safe(f.name)}`,msg=document.getElementById("gameMsg")||document.getElementById("gameUploadMsg");if(msg)msg.textContent="⏳ Mengupload game...";const up=await c.storage.from(BUCKET).upload(path,f,{upsert:false,contentType:f.type||"application/octet-stream"});if(up.error){if(msg)msg.textContent="❌ "+up.error.message;return}try{const id=crypto.randomUUID();await sd52DbUpsert("game",id,{id,kelas:String(k),guru:teacher,mapel:subject,nama:title,keterangan:desc,file:f.name,path,size:f.size,type:f.type||"",created_at:new Date().toISOString()});if(msg)msg.textContent="✅ Game tersimpan online.";fileEl.value="";document.getElementById("gameName").value="";document.getElementById("gameDesc").value="";renderGamesOnline()}catch(e){await c.storage.from(BUCKET).remove([path]);if(msg)msg.textContent="❌ Data game gagal disimpan: "+e.message}}
+async function playOnlineGame(ep){await viewStorageFile(ep)}
+async function deleteOnlineGame(id,ep){if(!confirm("Hapus game ini?"))return;const c=initSB();if(!c)return;const p=dec(ep),r=await c.storage.from(BUCKET).remove([p]);if(r.error)return alert(r.error.message);try{await sd52DbDelete("game",dec(id))}catch(e){}renderGamesOnline()}
+async function renderAgendaOnline(){const a=document.getElementById("agendaList");if(!a)return;try{const rows=await sd52DbList("agenda");a.innerHTML=rows.length?rows.map(r=>`<div class=item><b>📅 ${esc(r.data.judul)}</b><div class=small>${esc(r.data.tanggal||"")}</div><p>${esc(r.data.keterangan||"")}</p><button class="btn danger" onclick="deleteAgendaOnline('${enc(r.key)}')">🗑️ Hapus</button></div>`).join(""):"<p class=muted>Belum ada agenda online.</p>"}catch(e){a.innerHTML=`<div class=notice err>${esc(e.message)}</div>`}}
+async function addAgendaOnline(){const judul=prompt("Nama agenda:");if(!judul)return;const tanggal=prompt("Tanggal",new Date().toISOString().slice(0,10));const keterangan=prompt("Keterangan","")||"";try{await sd52DbUpsert("agenda",crypto.randomUUID(),{judul,tanggal,keterangan});renderAgendaOnline()}catch(e){alert("❌ "+e.message)}}
+async function deleteAgendaOnline(k){if(!confirm("Hapus agenda?"))return;try{await sd52DbDelete("agenda",dec(k));renderAgendaOnline()}catch(e){alert(e.message)}}
+async function renderAnnOnline(){const a=document.getElementById("annList");if(!a)return;try{const rows=await sd52DbList("announcement");a.innerHTML=rows.length?rows.map(r=>`<div class=item><b>📢 ${esc(r.data.judul)}</b><p>${esc(r.data.isi||"")}</p><button class="btn danger" onclick="deleteAnnOnline('${enc(r.key)}')">🗑️ Hapus</button></div>`).join(""):"<p class=muted>Belum ada pengumuman online.</p>"}catch(e){a.innerHTML=`<div class=notice err>${esc(e.message)}</div>`}}
+async function addAnnOnline(){const judul=prompt("Judul pengumuman:");if(!judul)return;const isi=prompt("Isi pengumuman","")||"";try{await sd52DbUpsert("announcement",crypto.randomUUID(),{judul,isi});renderAnnOnline()}catch(e){alert("❌ "+e.message)}}
+async function deleteAnnOnline(k){if(!confirm("Hapus pengumuman?"))return;try{await sd52DbDelete("announcement",dec(k));renderAnnOnline()}catch(e){alert(e.message)}}
+async function saveSettingsOnline(){try{await sd52DbUpsert("settings","school",{school:school.value,year:year.value,teacher:teacher.value});setMsg.textContent="✅ Pengaturan tersimpan online."}catch(e){setMsg.textContent="❌ "+e.message}}
+async function loadSettingsOnline(){try{const r=await sd52DbGet("settings","school");if(r?.data){school.value=r.data.school||school.value;year.value=r.data.year||year.value;teacher.value=r.data.teacher||teacher.value}}catch(e){console.warn(e)}}
+const _sd52OriginalShowPage=window.showPage;
+window.showPage=async function(id){_sd52OriginalShowPage(id);if(id==="activities"){renderOnlineActivityHub();renderActivityWorkspace()}if(id==="attendance")await renderAttendanceOnline();if(id==="books")await renderBooksOnline();if(id==="games")await renderGamesOnline();if(id==="agenda")await renderAgendaOnline();if(id==="announcements")await renderAnnOnline();if(id==="settings")await loadSettingsOnline()};
+window.sd52OpenActivity=function(type){sd52SelectedActivity=dec(type||"Piket Kelas");_sd52OriginalShowPage("activities");renderOnlineActivityHub();renderActivityWorkspace()};
+window.saveAttendance=saveAttendanceOnline;window.saveRoster=saveRosterOnline;window.renderAttendance=renderAttendanceOnline;window.addBook=addBookOnline;window.renderBooks=renderBooksOnline;window.uploadGame=uploadGameOnline;window.renderGames=renderGamesOnline;window.addAgenda=addAgendaOnline;window.renderAgenda=renderAgendaOnline;window.delAgenda=deleteAgendaOnline;window.addAnnouncement=addAnnOnline;window.renderAnn=renderAnnOnline;window.delAnn=deleteAnnOnline;window.saveSettings=saveSettingsOnline;
+async function sd52BootOnline(){renderOnlineActivityHub();const c=initSB();if(!c)return;try{await renderBooksOnline();await renderGamesOnline();await renderAgendaOnline();await renderAnnOnline();await loadSettingsOnline()}catch(e){console.warn("Boot online:",e)}}
+setTimeout(sd52BootOnline,300);
+</script>
+
+<script id="back-button-script">
+function goBackPortal(){
+  const pages = document.querySelectorAll('.page');
+  const active = Array.from(pages).find(p => {
+    const s = getComputedStyle(p);
+    return s.display !== 'none' && !p.hidden;
+  });
+  const current = active ? active.id : '';
+  const historyKey = 'sd52_portal_page_history';
+  let hist = [];
+  try { hist = JSON.parse(sessionStorage.getItem(historyKey) || '[]'); } catch(e) {}
+
+  // Remove the current page from the top of our simple page history.
+  if (hist.length && hist[hist.length-1] === current) hist.pop();
+
+  const previous = hist.pop();
+  if (previous && document.getElementById(previous)) {
+    sessionStorage.setItem(historyKey, JSON.stringify(hist));
+    if (typeof showPage === 'function') {
+      showPage(previous, true);
+    } else {
+      document.getElementById(previous).scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  } else if (typeof showPage === 'function' && document.getElementById('dashboard')) {
+    sessionStorage.setItem(historyKey, JSON.stringify([]));
+    showPage('dashboard', true);
+  } else {
+    window.history.back();
+  }
+}
+</script>
+
+
+<script id="sd52-back-history">
+/* SD52_BACK_HISTORY */
+(function(){
+  if (window.sd52_showPage_wrapped) return;
+  if (typeof window.showPage !== 'function') return;
+  const originalShowPage = window.showPage;
+  window.showPage = function(pageId, fromBack){
+    try{
+      const current = Array.from(document.querySelectorAll('.page')).find(p=>{
+        const s=getComputedStyle(p);
+        return s.display!=='none' && !p.hidden;
+      });
+      const currentId = current ? current.id : '';
+      if(!fromBack && currentId && currentId !== pageId){
+        let hist=[];
+        try{hist=JSON.parse(sessionStorage.getItem('sd52_portal_page_history')||'[]')}catch(e){}
+        if(hist[hist.length-1] !== currentId) hist.push(currentId);
+        sessionStorage.setItem('sd52_portal_page_history', JSON.stringify(hist.slice(-30)));
+      }
+    }catch(e){}
+    return originalShowPage.apply(this, arguments);
+  };
+  window.sd52_showPage_wrapped = true;
+})();
+</script>
+
+<script>
+async function downloadGameFile(ep,en){
+  const c=initSB();if(!c){alert("Supabase belum dikonfigurasi.");return}
+  const {data,error}=await c.storage.from(BUCKET).download(dec(ep));
+  if(error){alert("Download game gagal: "+error.message);return}
+  const u=URL.createObjectURL(data),a=document.createElement("a");
+  a.href=u;a.download=dec(en);document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(u),1000);
+}
+</script>
+<script id="sd52-menu-docs-script">
+const SD52_IDB="sd52_menu_files_db";
+function sd52Cloud(){try{return typeof initSB==="function"?initSB():null}catch(e){return null}}
+function sd52DB(){
+  return new Promise((resolve,reject)=>{
+    const r=indexedDB.open(SD52_IDB,1);
+    r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains("files"))r.result.createObjectStore("files",{keyPath:"id"})};
+    r.onsuccess=()=>resolve(r.result); r.onerror=()=>reject(r.error);
+  });
+}
+async function sd52LocalPut(o){const db=await sd52DB();return new Promise((res,rej)=>{const t=db.transaction("files","readwrite");t.objectStore("files").put(o);t.oncomplete=()=>res();t.onerror=()=>rej(t.error)})}
+async function sd52LocalAll(menu){const db=await sd52DB();return new Promise((res,rej)=>{const t=db.transaction("files","readonly"),q=t.objectStore("files").getAll();q.onsuccess=()=>res(q.result.filter(x=>x.menu===menu).sort((a,b)=>b.created-b.created));q.onerror=()=>rej(q.error)})}
+async function sd52LocalDel(id){const db=await sd52DB();return new Promise((res,rej)=>{const t=db.transaction("files","readwrite");t.objectStore("files").delete(id);t.oncomplete=()=>res();t.onerror=()=>rej(t.error)})}
+function sd52Folder(id){return "menu-dokumen/"+id}
+function sd52Msg(id,text){const e=document.getElementById("sd52-msg-"+id);if(e)e.textContent=text||""}
+function sd52Icon(n,t){n=(n||"").toLowerCase();if((t||"").startsWith("image/"))return"🖼️";if((t||"").startsWith("video/"))return"🎥";if(n.endsWith(".pdf"))return"📕";if(/\.(doc|docx)$/.test(n))return"📝";if(/\.(xls|xlsx|csv)$/.test(n))return"📊";if(/\.(ppt|pptx)$/.test(n))return"📽️";if(n.endsWith(".zip"))return"🗜️";return"📄"}
+
+async function sd52UploadMenuFile(id){
+  const fileEl=document.getElementById("sd52-file-"+id), descEl=document.getElementById("sd52-desc-"+id), f=fileEl?.files?.[0];
+  if(!f){alert("Pilih file terlebih dahulu.");return}
+  if(f.size>50*1024*1024){alert("Ukuran file maksimal 50 MB.");return}
+  sd52Msg(id,"⏳ Mengupload...");
+  const c=sd52Cloud();
+  const name=(typeof safe==="function"?safe(f.name):f.name.replace(/[^\w.\-]/g,"_"));
+  const path=sd52Folder(id)+"/"+Date.now()+"_"+name;
+  try{
+    if(c){
+      const {error}=await c.storage.from(BUCKET).upload(path,f,{upsert:false,contentType:f.type||"application/octet-stream"});
+      if(error)throw new Error(error.message);
+      const meta=JSON.parse(localStorage.getItem("sd52_menu_file_meta")||"{}");
+      meta[path]={desc:descEl?.value?.trim()||"",menu:id};localStorage.setItem("sd52_menu_file_meta",JSON.stringify(meta));
+      sd52Msg(id,"✅ Berhasil diupload ke Supabase.");
+    }else{
+      await sd52LocalPut({id:path,menu:id,name:f.name,type:f.type||"",size:f.size,desc:descEl?.value?.trim()||"",created:Date.now(),blob:f});
+      sd52Msg(id,"✅ Berhasil disimpan di perangkat ini. Untuk tersimpan online, isi koneksi Supabase.");
+    }
+    fileEl.value="";if(descEl)descEl.value="";await sd52LoadMenuFiles(id);
+  }catch(e){console.error(e);sd52Msg(id,"❌ Upload gagal: "+e.message);alert("Upload gagal: "+e.message)}
+}
+async function sd52LoadMenuFiles(id){
+  const box=document.getElementById("sd52-list-"+id);if(!box)return;
+  const c=sd52Cloud();
+  try{
+    if(c){
+      const {data,error}=await c.storage.from(BUCKET).list(sd52Folder(id),{limit:100,sortBy:{column:"created_at",order:"desc"}});
+      if(error)throw new Error(error.message);
+      const meta=JSON.parse(localStorage.getItem("sd52_menu_file_meta")||"{}");
+      if(!data?.length){box.innerHTML="<p class='muted'>Belum ada file.</p>";return}
+      box.innerHTML=data.map(f=>{
+        const p=sd52Folder(id)+"/"+f.name,u=c.storage.from(BUCKET).getPublicUrl(p).data.publicUrl,d=meta[p]?.desc||"";
+        return `<div class="sd52-doc-card"><b>${sd52Icon(f.name,f.metadata?.mimetype)} ${esc(f.name)}</b><div class="small">${d?esc(d)+" • ":""}${f.created_at?new Date(f.created_at).toLocaleString("id-ID"):""}</div><div class="sd52-doc-actions"><a class="btn soft" href="${u}" target="_blank">👁️ Lihat</a><button class="btn primary" onclick="sd52DownloadMenuFile('${enc(p)}','${enc(f.name)}')">⬇️ Download</button><button class="btn danger" onclick="sd52DeleteMenuFile('${enc(p)}','${id}')">🗑️ Hapus</button></div></div>`
+      }).join("");
+    }else{
+      const data=await sd52LocalAll(id);
+      if(!data.length){box.innerHTML="<p class='muted'>Belum ada file.</p>";return}
+      box.innerHTML=data.map(f=>`<div class="sd52-doc-card"><b>${sd52Icon(f.name,f.type)} ${esc(f.name)}</b><div class="small">${f.desc?esc(f.desc)+" • ":""}${new Date(f.created).toLocaleString("id-ID")} • Perangkat ini</div><div class="sd52-doc-actions"><button class="btn soft" onclick="sd52ViewLocal('${enc(f.id)}')">👁️ Lihat</button><button class="btn primary" onclick="sd52DownloadLocal('${enc(f.id)}')">⬇️ Download</button><button class="btn danger" onclick="sd52DeleteLocal('${enc(f.id)}','${id}')">🗑️ Hapus</button></div></div>`).join("");
+    }
+  }catch(e){box.innerHTML="<div class='notice'>❌ "+esc(e.message)+"</div>"}
+}
+async function sd52DownloadMenuFile(ep,en){const c=sd52Cloud();if(!c){return}const {data,error}=await c.storage.from(BUCKET).download(dec(ep));if(error){alert("Download gagal: "+error.message);return}sd52SaveBlob(data,dec(en))}
+function sd52SaveBlob(blob,name){const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+async function sd52DeleteMenuFile(ep,id){if(!confirm("Yakin ingin menghapus file ini?"))return;const c=sd52Cloud(),p=dec(ep);if(!c)return;const {error}=await c.storage.from(BUCKET).remove([p]);if(error){alert("Hapus gagal: "+error.message);return}sd52LoadMenuFiles(id)}
+async function sd52LocalGet(id){const db=await sd52DB();return new Promise((res,rej)=>{const q=db.transaction("files","readonly").objectStore("files").get(id);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
+async function sd52ViewLocal(id){const f=await sd52LocalGet(dec(id));if(f)window.open(URL.createObjectURL(f.blob),"_blank")}
+async function sd52DownloadLocal(id){const f=await sd52LocalGet(dec(id));if(f)sd52SaveBlob(f.blob,f.name)}
+async function sd52DeleteLocal(id,menu){if(!confirm("Yakin ingin menghapus file ini?"))return;await sd52LocalDel(dec(id));sd52LoadMenuFiles(menu)}
+function sd52LoadCurrentMenuFiles(){const active=[...document.querySelectorAll(".page")].find(p=>{const s=getComputedStyle(p);return s.display!=="none"&&!p.hidden});if(active&&active.id!=="dashboard"&&document.getElementById("sd52-list-"+active.id))sd52LoadMenuFiles(active.id)}
+</script>
+
+
+
+
+<script id="sd52-menu-docs-wrapper">
+(function(){
+  if(window.sd52_showPage_docs_wrapped)return;
+  const oldShowPage=window.showPage;
+  if(typeof oldShowPage!=="function")return;
+  window.showPage=function(){
+    const r=oldShowPage.apply(this,arguments);
+    setTimeout(sd52LoadCurrentMenuFiles,150);
+    return r;
+  };
+  window.sd52_showPage_docs_wrapped=true;
+})();
+</script>
+
+<script id="sd52-kegiatan-script">
+function sd52OpenPage(id){
+  if(typeof showPage==="function"){showPage(id);setTimeout(()=>{if(typeof sd52LoadCurrentMenuFiles==="function")sd52LoadCurrentMenuFiles()},180)}
+  else {const e=document.getElementById(id);if(e)e.scrollIntoView({behavior:"smooth"})}
+}
+// Legacy activity opener removed: the online workspace opener is defined above.
+</script>
+
+</body>
+</html>
