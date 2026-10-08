@@ -1,0 +1,10 @@
+{
+  "name": "Aplikasi SD Negeri 52 Mataram",
+  "short_name": "SDN 52 MTR",
+  "description": "Aplikasi Kegiatan SD Negeri 52 Mataram",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1357a6",
+  "orientation": "portrait"
+}
