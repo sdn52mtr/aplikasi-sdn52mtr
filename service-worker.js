@@ -1,4 +1,4 @@
-const CACHE_NAME = "sdn52mtr-v1";
+const CACHE_NAME = "sdn52mtr-v2";
 
 const FILES_TO_CACHE = [
   "./",
