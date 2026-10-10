@@ -1,8 +1,12 @@
+
+
 {
+  "id": "./index.html",
   "name": "Aplikasi SD Negeri 52 Mataram",
   "short_name": "SDN 52 MTR",
-  "description": "Aplikasi Kegiatan SD Negeri 52 Mataram",
+  "description": "Portal Sekolah SD Negeri 52 Mataram Tahun Pelajaran 2026/2027",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1357a6",
